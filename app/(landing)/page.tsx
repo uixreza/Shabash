@@ -9,18 +9,14 @@ export default function Home() {
     <div className="relative flex min-h-[calc(100vh-13rem)] sm:min-h-[calc(100vh-4rem)] flex-col items-center justify-center overflow-hidden ">
       {/* Main content */}
       <main className="relative bg-blend-multiply z-10 flex flex-col items-center gap-6 px-4 text-center">
-        <div className="relative">
-          <Image
-            src={theme === "dark" ? "/couplesDark.png" : "/couples.jpeg"}
-            alt="wedding"
-            width={360}
-            height={360}
-            className="pointer-events-none"
-            priority
-          />
-
-          <Navbar />
-        </div>
+        <Image
+          src={theme === "dark" ? "/couplesDark.png" : "/couples.jpeg"}
+          alt="wedding"
+          width={360}
+          height={360}
+          className="pointer-events-none"
+          priority
+        />
 
         <h1 className="text-5xl z-10 font-bold tracking-tight text-foreground md:text-7xl">
           شاباش یادت نره
@@ -55,6 +51,10 @@ export default function Home() {
           ))}
         </div>
       </main>
+
+      <div className="fixed bottom-0 left-0 right-0 z-20 h-40 bg-gradient-to-b from-transparent to-background/70 md:hidden" />
+
+      <Navbar />
 
       {/* Copyright */}
       <footer className="fixed bottom-4 mx-auto z-10 text-xs text-foreground/30">
