@@ -6,7 +6,7 @@ import AuthModal from "./AuthModal";
 
 export default function Navbar() {
   const [authOpen, setAuthOpen] = useState(false);
-
+  //UI
   return (
     <nav className="fixed bottom-8 right-8 z-50 ">
       <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} />
