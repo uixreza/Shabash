@@ -3,10 +3,12 @@
 import { useState } from "react";
 import { useTheme } from "@/components/Wrapper";
 import statesCities from "@/data/states-cities.json";
+import AuthModal from "./AuthModal";
 
 export default function Header() {
   const { theme, setTheme } = useTheme();
   const [open, setOpen] = useState(false);
+  const [authOpen, setAuthOpen] = useState(false);
   const [selectedState, setSelectedState] = useState<string | null>(
     "خراسان شمالی",
   );
@@ -34,7 +36,19 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between border-b border-primary/10 bg-background/80 px-6 py-3 backdrop-blur-md">
-      <div className="relative">
+      <div className="flex items-center gap-2">
+        <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} />
+        <button
+          onClick={() => setAuthOpen(true)}
+          className="flex items-center gap-1.5 rounded-xl bg-primary px-3 py-2 text-sm font-medium text-white transition-all hover:bg-primary/90 active:scale-95 md:hidden"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+          ورود
+        </button>
+        <div className="relative">
           <button
             onClick={() => setOpen((prev) => !prev)}
             className="flex items-center gap-2 rounded-xl border border-primary/30 px-4 py-2 text-sm font-medium text-foreground transition-all hover:bg-primary/10 hover:border-primary/50 active:scale-95">
@@ -106,6 +120,7 @@ export default function Header() {
             </div>
           </>
         )}
+      </div>
       </div>
 
       <button

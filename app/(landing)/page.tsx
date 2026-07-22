@@ -54,7 +54,9 @@ export default function Home() {
 
       <div className="fixed bottom-0 left-0 right-0 z-20 h-40 bg-gradient-to-b from-transparent to-background/70 md:hidden" />
 
-      <Navbar />
+      <div className="hidden md:block">
+        <Navbar />
+      </div>
 
       {/* Copyright */}
       <footer className="fixed bottom-4 mx-auto z-10 text-xs text-foreground/30">
