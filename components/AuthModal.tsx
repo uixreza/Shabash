@@ -47,8 +47,8 @@ export default function AuthModal({ open, onClose }: AuthModalProps) {
 
   return (
     <>
-      <div className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm" onClick={handleClose} />
-      <div className="fixed left-1/2 top-1/2 z-50 w-full max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-primary/10 bg-background p-6 shadow-2xl shadow-primary/20">
+      <div className="fixed inset-0 z-[60] bg-black/40 backdrop-blur-sm" onClick={handleClose} />
+      <div className="fixed left-1/2 top-1/2 z-[70] w-full max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-primary/10 bg-background p-6 shadow-2xl shadow-primary/20">
         <button onClick={handleClose} className="absolute left-3 top-3 text-foreground/40 transition-colors hover:text-foreground">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M18 6 6 18" /><path d="m6 6 12 12" />
