@@ -1,31 +1,21 @@
+"use client";
+
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
-
+import { useTheme } from "@/components/Wrapper";
 export default function Home() {
+  const { theme } = useTheme();
   return (
-    <div className="relative flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center overflow-hidden bg-background">
-      {/* Fade glares of primary color */}
-      <div className="pointer-events-none fixed inset-0 z-0">
-        <div className="absolute -bottom-32 -left-32 h-[400px] w-[400px] rounded-full bg-primary/8 blur-[100px]" />
-        <div className="absolute top-1/3 left-1/4 h-[300px] w-[300px] rounded-full bg-primary/5 blur-[90px]" />
-      </div>
-
+    <div className="relative flex min-h-[calc(100vh-13rem)] sm:min-h-[calc(100vh-4rem)] flex-col items-center justify-center overflow-hidden ">
       {/* Main content */}
-      <main className="relative z-10 flex flex-col items-center gap-6 px-4 text-center">
+      <main className="relative bg-blend-multiply z-10 flex flex-col items-center gap-6 px-4 text-center">
         <Image
-          src="/landing.png"
+          src={theme === "dark" ? "/couplesDark.png" : "/couples.jpeg"}
           alt="wedding"
           width={360}
           height={360}
-          className="mb-2 rounded-b-full"
+          className="mb-2 pointer-events-none"
           priority
-        />
-        <Image
-          src="/flowers.png"
-          alt="flowers"
-          width={420}
-          height={420}
-          className="absolute -top-24"
         />
 
         <h1 className="text-5xl z-10 font-bold tracking-tight text-foreground md:text-7xl">
@@ -33,7 +23,7 @@ export default function Home() {
         </h1>
 
         <p className="max-w-md text-lg text-foreground/60 md:text-xl">
-          با شاباش ، نگران مراسم نباش
+          با شاباشچی ، دیگه نگران مراسم نباش
         </p>
 
         {/* Steps */}

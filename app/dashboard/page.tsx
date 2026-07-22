@@ -33,6 +33,9 @@ export default function DashboardPage() {
             <div className="mx-auto max-w-4xl">
               <h1 className="text-2xl font-bold text-foreground">خوش آمدید</h1>
               <p className="mt-1 text-sm text-foreground/50">به داشبورد شاباش خوش آمدید</p>
+              <p className="mt-4 rounded-xl border border-primary/10 bg-primary/5 px-4 py-3 text-sm text-foreground/60 leading-relaxed">
+                برای افزودن برنامه عروسی جدید گزینه <span className="font-medium text-primary">برنامه عروسی</span> را انتخاب کنید. پیگیری تغییرات در بخش <span className="font-medium text-primary">وضعیت درخواست‌ها</span> قابل مشاهده است.
+              </p>
             </div>
           </main>
         </div>

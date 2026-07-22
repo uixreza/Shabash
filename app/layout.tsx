@@ -21,6 +21,12 @@ export default function RootLayout({
       className="h-full antialiased"
       suppressHydrationWarning>
       <body className="min-h-full flex flex-col">
+        {/* Fade glares of primary color */}
+        <div className="pointer-events-none fixed inset-0 z-0">
+          <div className="absolute -top-32 -right-32 h-[400px] w-[400px] rounded-full bg-primary/8 blur-[100px]" />
+          <div className="absolute -bottom-32 -left-32 h-[400px] w-[400px] rounded-full bg-primary/8 blur-[100px]" />
+          <div className="absolute top-1/3 left-1/4 h-[300px] w-[300px] rounded-full bg-primary/5 blur-[90px]" />
+        </div>
         <Wrapper>
           <Header />
           <PageTransition>{children}</PageTransition>

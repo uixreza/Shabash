@@ -117,7 +117,7 @@ export default function Sidebar() {
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-sm font-bold text-white">
               ش
             </div>
-            <span className="text-base font-bold text-foreground">شاباش</span>
+            <span className="text-base font-bold text-foreground">شاباشچی</span>
           </div>
           <button
             onClick={() => setOpen(false)}
