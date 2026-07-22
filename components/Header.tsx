@@ -36,8 +36,8 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between border-b border-primary/10 bg-background/80 px-6 py-3 backdrop-blur-md">
+      <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} />
       <div className="flex items-center gap-2">
-        <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} />
         <button
           onClick={() => setAuthOpen(true)}
           className="flex items-center gap-1.5 rounded-xl border-2 border-primary bg-primary/15 px-3 py-2 text-sm font-medium text-primary shadow-sm transition-all hover:bg-primary/25 active:scale-95"

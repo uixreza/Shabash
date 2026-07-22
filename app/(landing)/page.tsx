@@ -7,7 +7,7 @@ export default function Home() {
   const { theme } = useTheme();
   const [selectedStep, setSelectedStep] = useState(0);
   return (
-    <div className="relative flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center overflow-hidden ">
+    <div className="relative flex min-h-[calc(100vh-13rem)] sm:min-h-[calc(100vh-4rem)] flex-col items-center justify-center overflow-hidden ">
       {/* Main content */}
       <main className="relative z-10 flex flex-col items-center gap-6 px-4 text-center">
         <Image
