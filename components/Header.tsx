@@ -40,7 +40,7 @@ export default function Header() {
         <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} />
         <button
           onClick={() => setAuthOpen(true)}
-          className="flex items-center gap-1.5 rounded-xl bg-primary px-3 py-2 text-sm font-medium text-white transition-all hover:bg-primary/90 active:scale-95 md:hidden"
+          className="flex items-center gap-1.5 rounded-xl border-2 border-primary bg-primary/15 px-3 py-2 text-sm font-medium text-primary shadow-sm transition-all hover:bg-primary/25 active:scale-95"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
