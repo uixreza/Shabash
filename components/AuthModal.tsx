@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useRef, type FormEvent } from "react";
+import { useState, useRef, useEffect, type FormEvent } from "react";
+import { createPortal } from "react-dom";
 
 interface AuthModalProps {
   open: boolean;
@@ -45,7 +46,7 @@ export default function AuthModal({ open, onClose }: AuthModalProps) {
 
   if (!open) return null;
 
-  return (
+  return createPortal(
     <>
       <div className="fixed inset-0 z-[60] bg-black/40 backdrop-blur-sm" onClick={handleClose} />
       <div className="fixed left-1/2 top-1/2 z-[70] w-full max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-primary/10 bg-background p-6 shadow-2xl shadow-primary/20">
@@ -135,6 +136,7 @@ export default function AuthModal({ open, onClose }: AuthModalProps) {
           </form>
         )}
       </div>
-    </>
+    </>,
+    document.body,
   );
 }
