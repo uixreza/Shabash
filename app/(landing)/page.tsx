@@ -9,14 +9,18 @@ export default function Home() {
     <div className="relative flex min-h-[calc(100vh-13rem)] sm:min-h-[calc(100vh-4rem)] flex-col items-center justify-center overflow-hidden ">
       {/* Main content */}
       <main className="relative bg-blend-multiply z-10 flex flex-col items-center gap-6 px-4 text-center">
-        <Image
-          src={theme === "dark" ? "/couplesDark.png" : "/couples.jpeg"}
-          alt="wedding"
-          width={360}
-          height={360}
-          className="mb-2 pointer-events-none"
-          priority
-        />
+        <div className="relative">
+          <Image
+            src={theme === "dark" ? "/couplesDark.png" : "/couples.jpeg"}
+            alt="wedding"
+            width={360}
+            height={360}
+            className="pointer-events-none"
+            priority
+          />
+
+          <Navbar />
+        </div>
 
         <h1 className="text-5xl z-10 font-bold tracking-tight text-foreground md:text-7xl">
           شاباش یادت نره
@@ -27,7 +31,7 @@ export default function Home() {
         </p>
 
         {/* Steps */}
-        <div className="mt-8 flex items-center gap-0 md:gap-2">
+        <div className="sm:mt-8 mt-5 flex items-center gap-0 md:gap-2">
           {[
             { num: "۱", label: "درخواست" },
             { num: "۲", label: "رزرو تالار" },
@@ -52,11 +56,8 @@ export default function Home() {
         </div>
       </main>
 
-      {/* Bottom menu */}
-      <Navbar />
-
       {/* Copyright */}
-      <footer className="fixed bottom-4 left-4 z-10 text-xs text-foreground/30">
+      <footer className="fixed bottom-4 mx-auto z-10 text-xs text-foreground/30">
         © ۲۰۲۶ شاباش. تمامی حقوق محفوظ است.
       </footer>
     </div>

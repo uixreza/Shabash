@@ -33,9 +33,8 @@ export default function Header() {
   }
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-start border-b border-primary/10 bg-background/80 px-6 py-3 backdrop-blur-md">
-      <div className="flex items-center gap-2">
-        <div className="relative">
+    <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between border-b border-primary/10 bg-background/80 px-6 py-3 backdrop-blur-md">
+      <div className="relative">
           <button
             onClick={() => setOpen((prev) => !prev)}
             className="flex items-center gap-2 rounded-xl border border-primary/30 px-4 py-2 text-sm font-medium text-foreground transition-all hover:bg-primary/10 hover:border-primary/50 active:scale-95">
@@ -123,7 +122,6 @@ export default function Header() {
           </svg>
         )}
       </button>
-      </div>
     </header>
   );
 }

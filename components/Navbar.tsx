@@ -8,16 +8,16 @@ export default function Navbar() {
   const [authOpen, setAuthOpen] = useState(false);
   //UI
   return (
-    <nav className="fixed bottom-8 right-8 z-50 ">
+    <nav className="absolute bottom-2 left-1/2 z-50 -translate-x-1/2 md:fixed md:bottom-8 md:right-8 md:left-auto md:translate-x-0">
       <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} />
-      <div className="flex flex-row items-center gap-1.5 rounded-2xl  border-2 border-primary/20 bg-background px-2 py-3  backdrop-blur-xl">
+      <div className="flex flex-row items-center gap-1.5 rounded-2xl border-2 border-primary/20 bg-background px-2 py-3 backdrop-blur-xl">
         <button
           onClick={() => setAuthOpen(true)}
-          className="flex w-20 flex-col items-center gap-0.5 rounded-xl bg-primary px-4 py-2 text-white transition-all hover:bg-primary/90 active:scale-95">
+          className="flex flex-row items-center gap-1.5 rounded-xl bg-primary px-3 py-2 text-white transition-all hover:bg-primary/90 active:scale-95">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="18"
+            width="16"
+            height="16"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -27,15 +27,15 @@ export default function Navbar() {
             <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
             <circle cx="12" cy="7" r="4" />
           </svg>
-          <span className="text-[10px] leading-tight">ورود</span>
+          <span className="text-xs">ورود</span>
         </button>
         <Link
           href="/about"
-          className="flex w-20 flex-col items-center gap-0.5 rounded-xl px-4 py-2 text-foreground/60 transition-all hover:bg-primary/10 hover:text-foreground active:scale-95">
+          className="flex flex-row items-center gap-1.5 rounded-xl px-3 py-2 text-foreground/60 transition-all hover:bg-primary/10 hover:text-foreground active:scale-95">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="18"
+            width="16"
+            height="16"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -46,7 +46,7 @@ export default function Navbar() {
             <path d="M12 16v-4" />
             <path d="M12 8h.01" />
           </svg>
-          <span className="text-[10px] leading-tight">درباره</span>
+          <span className="text-xs">درباره</span>
         </Link>
       </div>
     </nav>
