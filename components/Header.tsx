@@ -1,14 +1,17 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { useTheme } from "@/components/Wrapper";
 import statesCities from "@/data/states-cities.json";
 import AuthModal from "./AuthModal";
 
 export default function Header() {
+  const pathname = usePathname();
   const { theme, setTheme } = useTheme();
   const [open, setOpen] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
+  const isDashboard = pathname.startsWith("/dashboard");
   const [selectedState, setSelectedState] = useState<string | null>(
     "خراسان شمالی",
   );
@@ -38,16 +41,18 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between border-b border-primary/10 bg-background/80 px-6 py-3 backdrop-blur-md">
       <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} />
       <div className="flex items-center gap-2">
-        <button
-          onClick={() => setAuthOpen(true)}
-          className="flex items-center gap-1.5 rounded-xl border-2 border-primary bg-primary/15 px-3 py-2 text-sm font-medium text-primary shadow-sm transition-all hover:bg-primary/25 active:scale-95"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-            <circle cx="12" cy="7" r="4" />
-          </svg>
-          ورود
-        </button>
+        {!isDashboard && (
+          <button
+            onClick={() => setAuthOpen(true)}
+            className="flex items-center gap-1.5 rounded-xl border-2 border-primary bg-primary/15 px-3 py-2 text-sm font-medium text-primary shadow-sm transition-all hover:bg-primary/25 active:scale-95"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            ورود
+          </button>
+        )}
         <div className="relative">
           <button
             onClick={() => setOpen((prev) => !prev)}
