@@ -1,14 +1,9 @@
-import Sidebar from "@/components/dashboard/Sidebar";
-import DashboardHeader from "@/components/dashboard/Header";
+"use client";
 
 export default function AccountPage() {
   return (
-    <div className="flex h-[calc(100vh-4rem)] overflow-hidden">
-      <Sidebar />
-      <div className="flex flex-1 flex-col">
-        <DashboardHeader />
-        <main className="flex-1 overflow-y-auto p-6">
-          <div className="mx-auto max-w-2xl">
+    <main className="flex-1 overflow-y-auto p-6">
+      <div className="mx-auto max-w-2xl">
             <h1 className="text-2xl font-bold text-foreground">حساب کاربری</h1>
             <p className="mt-1 text-sm text-foreground/50">اطلاعات شخصی خود را تکمیل کنید</p>
 
@@ -55,7 +50,5 @@ export default function AccountPage() {
             </div>
           </div>
         </main>
-      </div>
-    </div>
   );
 }

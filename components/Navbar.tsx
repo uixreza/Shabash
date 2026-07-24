@@ -8,7 +8,7 @@ export default function Navbar() {
   const [authOpen, setAuthOpen] = useState(false);
   //UI
   return (
-    <nav className="fixed bottom-8 right-8 z-50">
+    <nav className="fixed bottom-8 right-8  z-50">
       <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} />
       <div className="flex flex-row items-center gap-1.5 rounded-2xl border-2 border-primary/20 bg-background px-2 py-3 backdrop-blur-xl">
         <button

@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Sidebar from "@/components/dashboard/Sidebar";
-import DashboardHeader from "@/components/dashboard/Header";
 
 type TicketStatus = "پاسخ داده شده" | "در انتظار" | "بسته شده";
 
@@ -108,11 +106,8 @@ export default function TicketsPage() {
   }
 
   return (
-    <div className="flex h-[calc(100vh-4rem)] overflow-hidden">
-      <Sidebar />
-      <div className="flex flex-1 flex-col">
-        <DashboardHeader />
-        <div className="flex flex-1 overflow-hidden">
+    <>
+      <div className="flex flex-1 overflow-hidden">
           <div className="flex w-80 shrink-0 flex-col border-l border-primary/10">
             <div className="flex items-center justify-between border-b border-primary/10 p-4">
               <h2 className="text-sm font-bold text-foreground">تیکت‌ها</h2>
@@ -196,7 +191,6 @@ export default function TicketsPage() {
             )}
           </div>
         </div>
-      </div>
 
       {showNew && (
         <>
@@ -253,6 +247,6 @@ export default function TicketsPage() {
           </div>
         </>
       )}
-    </div>
+    </>
   );
 }
