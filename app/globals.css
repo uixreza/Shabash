@@ -93,17 +93,62 @@
 :root {
   --background: #fffaf3;
   --foreground: #2d2d2d;
+
+  --lp-bg: #f6f1e6;
+  --lp-bg-alt: #efe7d5;
+  --lp-surface: rgba(255, 253, 246, 0.65);
+  --lp-surface-strong: #fffdf7;
+  --lp-border: rgba(168, 132, 42, 0.18);
+  --lp-border-strong: rgba(168, 132, 42, 0.45);
+  --lp-text: #24352c;
+  --lp-muted: #5d6f64;
+  --lp-gold: #96751f;
+  --lp-gold-bright: #b8922b;
+  --lp-gold-soft: rgba(168, 132, 42, 0.1);
+  --lp-green: #73976a;
+  --lp-on-gold: #fffdf7;
+  --lp-glow: rgba(184, 146, 43, 0.14);
+  --lp-shadow: 0 10px 30px rgba(120, 95, 30, 0.08);
 }
 
 [data-theme="dark"] {
   --background: #1b211a;
   --foreground: #fffaf3;
+
+  --lp-bg: #081610;
+  --lp-bg-alt: #0a1a12;
+  --lp-surface: rgba(16, 30, 24, 0.65);
+  --lp-surface-strong: #14221c;
+  --lp-border: rgba(212, 175, 55, 0.15);
+  --lp-border-strong: rgba(212, 175, 55, 0.45);
+  --lp-text: #f2f6f0;
+  --lp-muted: #a1b0a8;
+  --lp-gold: #d4af37;
+  --lp-gold-bright: #e5c158;
+  --lp-gold-soft: rgba(212, 175, 55, 0.12);
+  --lp-green: #73976a;
+  --lp-on-gold: #0a140f;
+  --lp-glow: rgba(212, 175, 55, 0.12);
+  --lp-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-primary: #73976a;
+  --color-lp-bg: var(--lp-bg);
+  --color-lp-bg-alt: var(--lp-bg-alt);
+  --color-lp-surface: var(--lp-surface);
+  --color-lp-surface-strong: var(--lp-surface-strong);
+  --color-lp-border: var(--lp-border);
+  --color-lp-border-strong: var(--lp-border-strong);
+  --color-lp-text: var(--lp-text);
+  --color-lp-muted: var(--lp-muted);
+  --color-lp-gold: var(--lp-gold);
+  --color-lp-gold-bright: var(--lp-gold-bright);
+  --color-lp-gold-soft: var(--lp-gold-soft);
+  --color-lp-green: var(--lp-green);
+  --color-lp-on-gold: var(--lp-on-gold);
   --font-sans: "Dana", ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -111,4 +156,55 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: "Dana", ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4.5rem;
+}
+
+.lp-gold-gradient {
+  background-image: linear-gradient(135deg, #e5c158 0%, #d4af37 50%, #b89225 100%);
+}
+
+[data-theme="light"] .lp-gold-gradient {
+  background-image: linear-gradient(135deg, #c2a04a 0%, #a17e26 55%, #85661b 100%);
+}
+
+.lp-gold-text {
+  background-image: linear-gradient(120deg, #f0d078, #d4af37 45%, #b89225);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+[data-theme="light"] .lp-gold-text {
+  background-image: linear-gradient(120deg, #a17e26, #8f6f1d 60%, #7a5d15);
+}
+
+.lp-glass {
+  background: var(--lp-surface);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--lp-border);
+  box-shadow: var(--lp-shadow);
+}
+
+.lp-no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.lp-no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.lp-service-card:hover .lp-service-icon {
+  background-image: linear-gradient(135deg, #e5c158 0%, #d4af37 50%, #b89225 100%);
+  color: var(--lp-on-gold);
+  border-color: transparent;
+}
+
+[data-theme="light"] .lp-service-card:hover .lp-service-icon {
+  background-image: linear-gradient(135deg, #c2a04a 0%, #a17e26 55%, #85661b 100%);
 }

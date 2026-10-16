@@ -11,6 +11,8 @@ const CHECKLIST_ITEMS = [
   { id: "car", label: "رزرو ماشین و دکوراسیون" },
   { id: "nail", label: "سالن ناخن" },
   { id: "cookery", label: "آشپزخانه" },
+  { id: "band", label: "گروه موسیقی زنده" },
+  { id: "card", label: "کارت دعوت" },
 ];
 
 const CONTACT_METHODS = [
@@ -31,8 +33,7 @@ const REFERRAL_SOURCES = [
 const WEDDING_TYPES = [
   { value: "modern", label: "مدرن و لوکس" },
   { value: "garden", label: "باغ سنتی" },
-  { value: "hall", label: "تالار کلاسیک" },
-  { value: "rooftop", label: "پشت بام" },
+  { value: "country", label: "خارج از شهر" },
   { value: "none", label: "بدون ترجیح" },
 ];
 
@@ -43,6 +44,8 @@ const PRICE_MAP: Record<string, number> = {
   car: 3000000,
   nail: 2000000,
   cookery: 6000000,
+  band: 8000000,
+  card: 3000000,
 };
 
 function formatPrice(amount: number) {
@@ -222,6 +225,82 @@ function ErrorMsg({ children }: { children: React.ReactNode }) {
   return <p className="mt-1 text-xs text-red-400">{children}</p>;
 }
 
+const JALALI_MONTHS = [
+  { value: "1", label: "فروردین" },
+  { value: "2", label: "اردیبهشت" },
+  { value: "3", label: "خرداد" },
+  { value: "4", label: "تیر" },
+  { value: "5", label: "مرداد" },
+  { value: "6", label: "شهریور" },
+  { value: "7", label: "مهر" },
+  { value: "8", label: "آبان" },
+  { value: "9", label: "آذر" },
+  { value: "10", label: "دی" },
+  { value: "11", label: "بهمن" },
+  { value: "12", label: "اسفند" },
+];
+
+const JALALI_DAYS = Array.from({ length: 31 }, (_, i) => ({
+  value: String(i + 1).padStart(2, "0"),
+  label: String(i + 1),
+}));
+
+function JalaliDatePicker({
+  value,
+  onChange,
+  disabled,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  disabled?: boolean;
+}) {
+  const baseYear = new Date().getFullYear() - 621;
+  const parts = value ? value.split("/") : ["", "", ""];
+  const yearVal = parts[0] || "";
+  const monthVal = parts[1] || "";
+  const dayVal = parts[2] || "";
+
+  const years = Array.from({ length: 5 }, (_, i) => ({
+    value: String(baseYear - 2 + i),
+    label: String(baseYear - 2 + i),
+  }));
+
+  function update(field: "year" | "month" | "day", v: string) {
+    const y = field === "year" ? v : yearVal;
+    const m = field === "month" ? v : monthVal;
+    const d = field === "day" ? v : dayVal;
+    if (y && m && d) {
+      onChange(`${y}/${m.padStart(2, "0")}/${d.padStart(2, "0")}`);
+    } else {
+      onChange("");
+    }
+  }
+
+  return (
+    <div
+      className={`grid grid-cols-3 gap-2 ${disabled ? "pointer-events-none opacity-40" : ""}`}>
+      <CustomSelect
+        value={yearVal}
+        onChange={(v) => update("year", v)}
+        options={years}
+        placeholder="سال"
+      />
+      <CustomSelect
+        value={monthVal}
+        onChange={(v) => update("month", v)}
+        options={JALALI_MONTHS}
+        placeholder="ماه"
+      />
+      <CustomSelect
+        value={dayVal}
+        onChange={(v) => update("day", v)}
+        options={JALALI_DAYS}
+        placeholder="روز"
+      />
+    </div>
+  );
+}
+
 function SectionCard({
   title,
   children,
@@ -251,6 +330,7 @@ export default function SchedulePage() {
     leaveToShabashchi: false,
     weddingType: "",
     budget: "",
+    guestCount: "",
     dreamWedding: "",
     checkedItems: ["talar", "ateliye", "mezon", "car", "nail", "cookery"],
   });
@@ -287,7 +367,6 @@ export default function SchedulePage() {
       formData.brideName.trim() !== "" &&
       formData.phone.trim() !== "" &&
       formData.contactMethod !== "" &&
-      formData.referralSource !== "" &&
       formData.weddingType !== "" &&
       formData.budget !== ""
     );
@@ -299,10 +378,10 @@ export default function SchedulePage() {
     if (!formData.brideName.trim()) e.brideName = "نام عروس الزامی است";
     if (!formData.phone.trim()) e.phone = "شماره تماس الزامی است";
     if (!formData.contactMethod) e.contactMethod = "روش تماس را انتخاب کنید";
-    if (!formData.referralSource)
-      e.referralSource = "منبع آشنایی را انتخاب کنید";
     if (!formData.weddingType) e.weddingType = "نوع عروسی را انتخاب کنید";
     if (!formData.budget) e.budget = "بودجه مورد نظر را وارد کنید";
+    if (!formData.leaveToShabashchi && !formData.weddingDate)
+      e.weddingDate = "تاریخ عروسی را وارد کنید";
     setErrors(e);
     return Object.keys(e).length === 0;
   }
@@ -527,7 +606,7 @@ export default function SchedulePage() {
             <SectionCard title="اطلاعات مراسم">
               <div className="space-y-4">
                 <div>
-                  <Label>از کجا با ما آشنا شدید؟</Label>
+                  <Label>از کجا با ما آشنا شدید؟ (اختیاری)</Label>
                   <CustomSelect
                     value={formData.referralSource}
                     onChange={(v) => update("referralSource", v)}
@@ -538,18 +617,14 @@ export default function SchedulePage() {
                 </div>
                 <div>
                   <Label>تاریخ عروسی</Label>
-                  <Textarea
+                  <JalaliDatePicker
                     value={formData.weddingDate}
-                    onChange={(e) => update("weddingDate", e.target.value)}
+                    onChange={(v) => update("weddingDate", v)}
                     disabled={formData.leaveToShabashchi}
-                    placeholder='مثلاً: "پاییز ۱۴۰۵" یا "۱۵ شهریور ۱۴۰۵"'
-                    rows={2}
-                    className={
-                      formData.leaveToShabashchi
-                        ? "cursor-not-allowed opacity-40"
-                        : ""
-                    }
                   />
+                  {errors.weddingDate && (
+                    <ErrorMsg>{errors.weddingDate}</ErrorMsg>
+                  )}
                   <label className="mt-2 flex cursor-pointer items-center gap-2">
                     <input
                       type="checkbox"
@@ -560,12 +635,12 @@ export default function SchedulePage() {
                       className="accent-primary"
                     />
                     <span className="text-sm text-foreground/70">
-                      این موضوع را به شاباشچی می‌سپارم
+                      هنوز تصمیم نگرفته ایم
                     </span>
                   </label>
                 </div>
                 <div>
-                  <Label>نوع عروسی</Label>
+                  <Label>نوع مراسم</Label>
                   <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
                     {WEDDING_TYPES.map((t) => (
                       <button
@@ -581,31 +656,63 @@ export default function SchedulePage() {
                       </button>
                     ))}
                   </div>
-{errors.weddingType && (
-                      <ErrorMsg>{errors.weddingType}</ErrorMsg>
-                    )}
+                  {errors.weddingType && (
+                    <ErrorMsg>{errors.weddingType}</ErrorMsg>
+                  )}
+                </div>
+                <div>
+                  <Label>بودجه مورد نظر</Label>
+                  <div className="relative">
+                    <Input
+                      type="text"
+                      inputMode="numeric"
+                      value={formData.budget ? addCommas(formData.budget) : ""}
+                      onChange={(e) => {
+                        const raw = e.target.value.replace(/\D/g, "");
+                        update("budget", raw);
+                      }}
+                      placeholder="مثلاً: ۵۰,۰۰۰,۰۰۰"
+                      className="pe-14"
+                    />
+                    <span className="absolute end-3 top-1/2 -translate-y-1/2 text-sm text-foreground/40 select-none">
+                      تومان
+                    </span>
                   </div>
-                  <div>
-                    <Label>بودجه مورد نظر</Label>
-                    <div className="relative">
-                      <Input
-                        type="text"
-                        inputMode="numeric"
-                        value={formData.budget ? addCommas(formData.budget) : ""}
-                        onChange={(e) => {
-                          const raw = e.target.value.replace(/\D/g, "");
-                          update("budget", raw);
-                        }}
-                        placeholder="مثلاً: ۵۰,۰۰۰,۰۰۰"
-                        className="pe-14"
-                      />
-                      <span className="absolute end-3 top-1/2 -translate-y-1/2 text-sm text-foreground/40 select-none">
-                        تومان
-                      </span>
-                    </div>
-                    {errors.budget && <ErrorMsg>{errors.budget}</ErrorMsg>}
+                  {errors.budget && <ErrorMsg>{errors.budget}</ErrorMsg>}
+                </div>
+                <div>
+                  <Label>تعداد مهمانان</Label>
+                  <div className="relative">
+                    <Input
+                      type="text"
+                      inputMode="numeric"
+                      value={formData.guestCount}
+                      onChange={(e) => {
+                        const raw = e.target.value.replace(/\D/g, "");
+                        update("guestCount", raw);
+                      }}
+                      placeholder="مثلاً: ۲۰۰"
+                      className="pe-12"
+                    />
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="absolute end-3 top-1/2 -translate-y-1/2 text-foreground/40 select-none">
+                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                      <circle cx="9" cy="7" r="4" />
+                      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
                   </div>
                 </div>
+              </div>
             </SectionCard>
 
             <SectionCard title="موارد مورد نیاز">
@@ -732,6 +839,37 @@ export default function SchedulePage() {
                             <path d="M2 14h20" />
                           </svg>
                         )}
+                        {item.id === "band" && (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round">
+                            <path d="M9 18V5l12-2v13" />
+                            <circle cx="6" cy="18" r="3" />
+                            <circle cx="18" cy="16" r="3" />
+                          </svg>
+                        )}
+                        {item.id === "card" && (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round">
+                            <rect width="20" height="16" x="2" y="4" rx="2" />
+                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                          </svg>
+                        )}
                       </div>
                       <div className="flex-1">
                         <p
@@ -784,6 +922,11 @@ export default function SchedulePage() {
               className="w-full rounded-xl bg-primary py-3 text-sm font-medium text-white transition-all hover:bg-primary/90 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40">
               مرحله بعد
             </button>
+            {!hasRequiredFields() && (
+              <p className="mt-2 text-center text-xs text-foreground/40">
+                لطفاً تمام فیلدهای ضروری را پر کنید
+              </p>
+            )}
           </form>
         </div>
       </main>
@@ -846,14 +989,27 @@ export default function SchedulePage() {
                           : "border-2 border-primary/25 text-foreground/40"
                     }`}>
                     {completed ? (
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
                     ) : (
                       i + 1
                     )}
                   </div>
                   <span
                     className={`whitespace-nowrap text-[10px] font-medium ${
-                      completed || current ? "text-primary" : "text-foreground/30"
+                      completed || current
+                        ? "text-primary"
+                        : "text-foreground/30"
                     }`}>
                     {CHECKLIST_ITEMS.find((item) => item.id === id)?.label}
                   </span>
@@ -864,7 +1020,9 @@ export default function SchedulePage() {
           <div className="flex items-center">
             <div
               className={`mx-1 h-0.5 w-6 rounded-full sm:mx-2 sm:w-12 ${
-                isConsentStep || step > activeSteps.length ? "bg-primary" : "bg-primary/15"
+                isConsentStep || step > activeSteps.length
+                  ? "bg-primary"
+                  : "bg-primary/15"
               }`}
             />
             <div className="flex shrink-0 flex-col items-center gap-1.5">

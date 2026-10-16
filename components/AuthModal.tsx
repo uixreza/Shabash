@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, type FormEvent } from "react";
+import { useState, useRef, type FormEvent } from "react";
 import { createPortal } from "react-dom";
 
 interface AuthModalProps {
@@ -48,9 +48,9 @@ export default function AuthModal({ open, onClose }: AuthModalProps) {
 
   return createPortal(
     <>
-      <div className="fixed inset-0 z-[60] bg-black/40 backdrop-blur-sm" onClick={handleClose} />
-      <div className="fixed left-1/2 top-1/2 z-[70] w-full max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-primary/10 bg-background p-6 shadow-2xl shadow-primary/20">
-        <button onClick={handleClose} className="absolute left-3 top-3 text-foreground/40 transition-colors hover:text-foreground">
+      <div className="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm" onClick={handleClose} />
+      <div className="fixed left-1/2 top-1/2 z-[70] w-full max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-lp-border bg-lp-surface-strong/95 p-6 shadow-2xl shadow-black/40 backdrop-blur-xl">
+        <button onClick={handleClose} className="absolute left-3 top-3 text-lp-muted transition-colors hover:text-lp-gold">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M18 6 6 18" /><path d="m6 6 12 12" />
           </svg>
@@ -58,14 +58,14 @@ export default function AuthModal({ open, onClose }: AuthModalProps) {
 
         {step === "phone" ? (
           <form onSubmit={handlePhoneSubmit} className="flex flex-col items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
+            <div className="lp-gold-gradient flex h-12 w-12 items-center justify-center rounded-xl text-lp-on-gold shadow-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
               </svg>
             </div>
 
-            <h2 className="text-lg font-bold text-foreground">ورود به شاباش</h2>
-            <p className="-mt-2 text-sm text-foreground/50">شماره موبایل خود را وارد کنید</p>
+            <h2 className="text-lg font-bold text-lp-text">ورود به شاباش</h2>
+            <p className="-mt-2 text-sm text-lp-muted">شماره موبایل خود را وارد کنید</p>
 
             <input
               type="tel"
@@ -73,19 +73,19 @@ export default function AuthModal({ open, onClose }: AuthModalProps) {
               placeholder="۰۹۱۲۳۴۵۶۷۸۹"
               value={phone}
               onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 11))}
-              className="w-full rounded-xl border border-primary/20 bg-background px-4 py-3 text-center text-lg tracking-[0.15em] text-foreground outline-none transition-all placeholder:text-foreground/30 focus:border-primary/50 focus:ring-2 focus:ring-primary/20"
+              className="w-full rounded-xl border border-lp-border bg-lp-bg/70 px-4 py-3 text-center text-lg tracking-[0.15em] text-lp-text outline-none transition-all placeholder:text-lp-muted/50 focus:border-lp-gold focus:ring-2 focus:ring-lp-gold/30"
             />
 
             <button
               type="submit"
               disabled={phone.length < 10}
-              className="w-full rounded-xl bg-primary py-3 text-sm font-medium text-white transition-all hover:bg-primary/90 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40"
+              className="lp-gold-gradient w-full rounded-xl py-3 text-sm font-bold text-lp-on-gold transition-all hover:brightness-110 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40"
             >
               دریافت کد
             </button>
 
-            <p className="text-[11px] text-foreground/40 leading-relaxed">
-              با ثبت‌نام، <span className="text-primary/70">قوانین</span> و <span className="text-primary/70">حریم خصوصی</span> شاباش را می‌پذیرید.
+            <p className="text-[11px] leading-relaxed text-lp-muted">
+              با ثبت‌نام، <span className="font-bold text-lp-gold">قوانین</span> و <span className="font-bold text-lp-gold">حریم خصوصی</span> شاباش را می‌پذیرید.
             </p>
           </form>
         ) : (
@@ -97,14 +97,14 @@ export default function AuthModal({ open, onClose }: AuthModalProps) {
             }}
             className="flex flex-col items-center gap-4"
           >
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
+            <div className="lp-gold-gradient flex h-12 w-12 items-center justify-center rounded-xl text-lp-on-gold shadow-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect width="18" height="11" x="3" y="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" />
               </svg>
             </div>
 
-            <h2 className="text-lg font-bold text-foreground">کد تأیید</h2>
-            <p className="-mt-2 text-sm text-foreground/50">کد ۴ رقمی را وارد کنید</p>
+            <h2 className="text-lg font-bold text-lp-text">کد تأیید</h2>
+            <p className="-mt-2 text-sm text-lp-muted">کد ۴ رقمی را وارد کنید</p>
 
             <div className="flex gap-3" dir="ltr">
               {otp.map((digit, i) => (
@@ -117,7 +117,7 @@ export default function AuthModal({ open, onClose }: AuthModalProps) {
                   value={digit}
                   onChange={(e) => handleOtpChange(i, e.target.value)}
                   onKeyDown={(e) => handleOtpKeyDown(i, e)}
-                  className="h-14 w-12 rounded-xl border border-primary/20 bg-background text-center text-xl font-bold text-foreground outline-none transition-all focus:border-primary/50 focus:ring-2 focus:ring-primary/20"
+                  className="h-14 w-12 rounded-xl border border-lp-border bg-lp-bg/70 text-center text-xl font-bold text-lp-text outline-none transition-all focus:border-lp-gold focus:ring-2 focus:ring-lp-gold/30"
                 />
               ))}
             </div>
@@ -125,12 +125,12 @@ export default function AuthModal({ open, onClose }: AuthModalProps) {
             <button
               type="submit"
               disabled={otp.some((d) => !d)}
-              className="w-full rounded-xl bg-primary py-3 text-sm font-medium text-white transition-all hover:bg-primary/90 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40"
+              className="lp-gold-gradient w-full rounded-xl py-3 text-sm font-bold text-lp-on-gold transition-all hover:brightness-110 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40"
             >
               تأیید
             </button>
 
-            <button type="button" onClick={() => { setStep("phone"); setOtp(["", "", "", ""]); }} className="text-xs text-primary transition-colors hover:text-primary/70">
+            <button type="button" onClick={() => { setStep("phone"); setOtp(["", "", "", ""]); }} className="text-xs font-bold text-lp-gold transition-colors hover:underline">
               تغییر شماره
             </button>
           </form>

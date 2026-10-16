@@ -18,7 +18,7 @@ export default function RootLayout({
     <html
       lang="fa"
       dir="rtl"
-      className="h-full overflow-hidden antialiased"
+      className="h-full antialiased"
       suppressHydrationWarning>
       <body className="min-h-full  flex  flex-col">
         {/* Fade glares of primary color */}
