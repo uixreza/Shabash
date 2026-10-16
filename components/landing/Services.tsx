@@ -23,7 +23,7 @@ export default function Services() {
       <div className="pointer-events-none absolute inset-0 bg-lp-bg-alt/60" />
       <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-6 lg:px-12">
         <div className="mx-auto mb-12 max-w-2xl text-center lg:mb-16">
-          <span className="text-xs font-bold tracking-wide text-lp-gold sm:text-sm">
+          <span className="text-xs font-bold text-lp-gold sm:text-sm">
             خدمات جامع عروسی
           </span>
           <h2 className="mt-1 text-2xl font-bold text-lp-text sm:text-3xl lg:text-4xl">

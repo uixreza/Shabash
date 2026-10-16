@@ -82,7 +82,7 @@ export default function Header() {
       {open && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-          <div className="absolute top-full left-0 z-50 mt-2 max-h-72 w-64 overflow-y-auto rounded-2xl border border-lp-border bg-lp-surface-strong p-2 shadow-2xl backdrop-blur-xl">
+          <div className="absolute top-full right-0 z-50 mt-2 max-h-72 w-64 overflow-y-auto rounded-2xl border border-lp-border bg-lp-surface-strong p-2 shadow-2xl backdrop-blur-xl sm:left-0 sm:right-auto">
             {!selectedState ? (
               <div className="space-y-1">
                 <p className="px-3 py-2 text-[11px] font-bold text-lp-muted">
@@ -136,29 +136,9 @@ export default function Header() {
 
   if (isDashboard) {
     return (
-      <>
-        <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between border-b border-primary/10 bg-background/80 px-6 py-3 backdrop-blur-md">
-          <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} />
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setAuthOpen(true)}
-              className="flex items-center gap-1.5 rounded-xl border-2 border-primary bg-primary/15 px-3 py-2 text-sm font-medium text-primary shadow-sm transition-all hover:bg-primary/25 active:scale-95">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round">
-                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-                <circle cx="12" cy="7" r="4" />
-              </svg>
-              ورود
-            </button>
-            <div className="relative">
+      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between border-b border-primary/10 bg-background/80 px-6 py-3 backdrop-blur-md">
+        <div className="flex items-center gap-2">
+          <div className="relative">
               <button
                 onClick={() => setOpen((prev) => !prev)}
                 className="flex items-center gap-2 rounded-xl border border-primary/30 px-4 py-2 text-sm font-medium text-foreground transition-all hover:bg-primary/10 hover:border-primary/50 active:scale-95">
@@ -272,8 +252,7 @@ export default function Header() {
               </svg>
             )}
           </button>
-        </header>
-      </>
+      </header>
     );
   }
 
@@ -281,8 +260,9 @@ export default function Header() {
     <header className="fixed inset-x-0 top-0 z-50 border-b border-lp-border bg-lp-bg/80 backdrop-blur-xl">
       <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} />
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-5 sm:px-6 lg:px-12">
-        <div className="flex items-center gap-8">
-          <a href="#hero" className="group flex items-center gap-2.5">
+        <div className="flex items-center gap-3">
+          <div className="sm:hidden">{locationPicker}</div>
+          <a href="#hero" className="group hidden items-center gap-2.5 sm:flex">
             <div className="lp-gold-gradient flex h-9 w-9 items-center justify-center rounded-xl text-lp-on-gold shadow-md transition-transform duration-300 group-hover:scale-105">
               <SparklesIcon className="h-5 w-5" />
             </div>
@@ -309,7 +289,7 @@ export default function Header() {
         </div>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          {locationPicker}
+          <div className="hidden sm:block">{locationPicker}</div>
           {themeButton}
           <button
             type="button"

@@ -10,7 +10,7 @@ export default function Venues() {
       <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-6 lg:px-12">
         <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between lg:mb-14">
           <div>
-            <span className="text-xs font-bold tracking-wide text-lp-gold sm:text-sm">
+            <span className="text-xs font-bold text-lp-gold sm:text-sm">
               تالارهای اختصاصی بجنورد و خراسان شمالی
             </span>
             <h2 className="mt-1 text-2xl font-bold text-lp-text sm:text-3xl lg:text-4xl">

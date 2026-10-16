@@ -23,7 +23,7 @@ export default function Steps() {
         <div className="mb-12 flex flex-col items-center text-center lg:mb-16">
           <div className="mb-2 inline-flex items-center gap-2 text-lp-gold">
             <SparklesIcon className="h-4 w-4" />
-            <span className="text-xs font-bold tracking-wide sm:text-sm">
+            <span className="text-xs font-bold sm:text-sm">
               مسیر چهارگانه شاباش
             </span>
           </div>

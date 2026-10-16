@@ -82,7 +82,7 @@ export default function Sidebar() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="fixed bottom-6 left-6 z-30 flex h-10 w-10 items-center justify-center rounded-xl border border-primary/20 bg-background text-foreground shadow-lg md:hidden">
+        className="fixed bottom-6 left-6 z-30 flex h-10 w-10 items-center justify-center rounded-xl border border-primary/20 bg-background text-foreground shadow-lg transition-all hover:border-primary/40 hover:text-primary active:scale-95 md:hidden">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="18"
@@ -99,18 +99,17 @@ export default function Sidebar() {
         </svg>
       </button>
 
-      {open && (
-        <div
-          className="fixed inset-0 z-40 bg-black/30 md:hidden"
-          onClick={() => setOpen(false)}
-        />
-      )}
+      <div
+        aria-hidden
+        onClick={() => setOpen(false)}
+        className={`fixed inset-0 z-40 bg-black/40 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
+          open ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
+      />
 
       <aside
-        className={`flex h-full flex-col border-l border-primary/10 bg-background/80 p-4 backdrop-blur-md transition-all ${
-          open
-            ? "fixed bottom-0 left-0 right-0 z-50 max-h-[70vh] rounded-t-2xl border border-primary/10 shadow-2xl"
-            : "hidden md:flex md:w-64"
+        className={`fixed inset-x-0 bottom-0 z-50 flex max-h-[70vh] flex-col overflow-y-auto rounded-t-2xl border-t border-primary/10 bg-background/90 p-4 shadow-2xl backdrop-blur-xl transition-transform duration-300 ease-out md:static md:z-auto md:h-full md:max-h-none md:w-64 md:translate-y-0 md:overflow-visible md:rounded-none md:border-t-0 md:border-l md:border-primary/10 md:shadow-none ${
+          open ? "translate-y-0" : "translate-y-full"
         }`}>
         <div className="mb-8 flex items-center justify-between px-3 pt-2">
           <div className="flex items-center gap-3">

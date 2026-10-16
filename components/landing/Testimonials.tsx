@@ -7,7 +7,7 @@ export default function Testimonials() {
       <div className="pointer-events-none absolute top-1/4 left-0 h-[360px] w-[360px] rounded-full bg-lp-gold/8 blur-[110px]" />
       <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-6 lg:px-12">
         <div className="mb-12 flex flex-col items-center text-center lg:mb-16">
-          <span className="text-xs font-bold tracking-wide text-lp-gold sm:text-sm">
+          <span className="text-xs font-bold text-lp-gold sm:text-sm">
             صدای پیوندهای ماندگار
           </span>
           <h2 className="mt-1 text-2xl font-bold text-lp-text sm:text-3xl lg:text-4xl">

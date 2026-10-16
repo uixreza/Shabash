@@ -33,7 +33,7 @@ export default function Hero() {
           <div className="flex flex-col items-center text-center lg:col-span-7 lg:items-start lg:text-right">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-lp-gold/25 bg-lp-surface-strong/80 px-4 py-1.5 backdrop-blur-md">
               <ZapIcon className="h-4 w-4 text-lp-gold" />
-              <span className="text-xs font-bold tracking-wide text-lp-gold sm:text-sm">
+              <span className="text-xs font-bold text-lp-gold sm:text-sm">
                 فقط ۳ دقیقه تا برنامه‌ریزی کامل مراسم
               </span>
             </div>
