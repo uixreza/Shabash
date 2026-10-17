@@ -24,14 +24,14 @@ export default function Steps() {
           <div className="mb-2 inline-flex items-center gap-2 text-lp-gold">
             <SparklesIcon className="h-4 w-4" />
             <span className="text-xs font-bold sm:text-sm">
-              مسیر چهارگانه شاباش
+              مسیر چهارگانه شاباشچی
             </span>
           </div>
           <h2 className="text-2xl font-bold text-lp-text sm:text-3xl lg:text-4xl">
             از درخواست تا شب رویایی، قدم به قدم
           </h2>
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-lp-muted sm:text-base">
-            از لحظه تصمیم‌گیری تا پایان شب رویایی‌تان، تیم شاباش همراه شماست؛
+            از لحظه تصمیم‌گیری تا پایان شب رویایی‌تان، تیم شاباشچی همراه شماست؛
             بدون سردرگمی، بدون قراردادهای پنهان.
           </p>
         </div>

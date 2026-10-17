@@ -5,8 +5,8 @@ import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import Wrapper from "@/components/Wrapper";
 export const metadata: Metadata = {
-  title: "شاباش | برنامه‌ریز عروسی",
-  description: "برنامه‌ریزی عروسی رویایی شما با شاباش",
+  title: "شاباشچی | برنامه‌ریز عروسی",
+  description: "برنامه‌ریزی عروسی رویایی شما با شاباشچی",
 };
 
 export default function RootLayout({

@@ -11,7 +11,7 @@ export default function Testimonials() {
             صدای پیوندهای ماندگار
           </span>
           <h2 className="mt-1 text-2xl font-bold text-lp-text sm:text-3xl lg:text-4xl">
-            تجربه عروسی رویایی با شاباش
+            تجربه عروسی رویایی با شاباشچی
           </h2>
         </div>
 

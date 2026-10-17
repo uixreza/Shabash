@@ -14,7 +14,7 @@ const tabs = [
   { id: "home", label: "خانه", href: "#hero", Icon: HomeIcon },
   { id: "venues", label: "تالارها", href: "#featured-venues", Icon: VillaIcon },
   { id: "services", label: "خدمات", href: "#services", Icon: SparklesIcon },
-  { id: "booking", label: "رزرو", href: "#lead-form", Icon: CalendarIcon },
+  { id: "booking", label: "رزرو", href: "/request", Icon: CalendarIcon },
 ] as const;
 
 export default function BottomTabBar() {

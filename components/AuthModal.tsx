@@ -64,7 +64,7 @@ export default function AuthModal({ open, onClose }: AuthModalProps) {
               </svg>
             </div>
 
-            <h2 className="text-lg font-bold text-lp-text">ورود به شاباش</h2>
+            <h2 className="text-lg font-bold text-lp-text">ورود به شاباشچی</h2>
             <p className="-mt-2 text-sm text-lp-muted">شماره موبایل خود را وارد کنید</p>
 
             <input
@@ -85,7 +85,7 @@ export default function AuthModal({ open, onClose }: AuthModalProps) {
             </button>
 
             <p className="text-[11px] leading-relaxed text-lp-muted">
-              با ثبت‌نام، <span className="font-bold text-lp-gold">قوانین</span> و <span className="font-bold text-lp-gold">حریم خصوصی</span> شاباش را می‌پذیرید.
+              با ثبت‌نام، <span className="font-bold text-lp-gold">قوانین</span> و <span className="font-bold text-lp-gold">حریم خصوصی</span> شاباشچی را می‌پذیرید.
             </p>
           </form>
         ) : (

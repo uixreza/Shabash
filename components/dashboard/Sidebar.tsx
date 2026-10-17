@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 const items = [
@@ -113,9 +114,13 @@ export default function Sidebar() {
         }`}>
         <div className="mb-8 flex items-center justify-between px-3 pt-2">
           <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-sm font-bold text-white">
-              ش
-            </div>
+            <Image
+              src="/logo.jpg"
+              alt="لوگوی شاباش"
+              width={36}
+              height={36}
+              className="h-9 w-9 rounded-xl object-cover shadow-sm ring-1 ring-primary/30"
+            />
             <span className="text-base font-bold text-foreground">شاباشچی</span>
           </div>
           <button

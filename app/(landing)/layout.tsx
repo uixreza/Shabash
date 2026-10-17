@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import PageTransition from "@/components/PageTransition";
 
 export const metadata: Metadata = {
-  title: "شاباش | برنامه‌ریز عروسی در بجنورد",
+  title: "شاباشچی | برنامه‌ریز عروسی در بجنورد",
   description:
-    "برنامه‌ریزی هوشمندانه و بی‌دغدغه‌ترین شب زندگی شما — رزرو آنلاین مجلل‌ترین تالارها و باغ‌عمارت‌های خراسان شمالی با شاباش",
+    "برنامه‌ریزی هوشمندانه و بی‌دغدغه‌ترین شب زندگی شما — رزرو آنلاین مجلل‌ترین تالارها و باغ‌عمارت‌های خراسان شمالی با شاباشچی",
 };
 
 export default function RootLayout({

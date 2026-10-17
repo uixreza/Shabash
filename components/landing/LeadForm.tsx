@@ -19,7 +19,7 @@ export default function LeadForm() {
     setError(null);
     setPhone("");
     toast.success(
-      "درخواست شما ثبت شد؛ کارشناس شاباش تا کمتر از ۲۵ دقیقه دیگر با شما تماس می‌گیرد.",
+      "درخواست شما ثبت شد؛ کارشناس شاباشچی تا کمتر از ۲۵ دقیقه دیگر با شما تماس می‌گیرد.",
     );
   }
 
@@ -38,7 +38,7 @@ export default function LeadForm() {
             آماده‌اید مراسم رویایی‌تان را شروع کنید؟
           </h2>
           <p className="relative z-10 mx-auto mb-8 max-w-xl text-sm leading-loose text-lp-muted sm:text-base">
-            شماره تماس خود را بگذارید تا کارشناس ارشد تشریفات شاباش در کمتر از
+            شماره تماس خود را بگذارید تا کارشناس ارشد تشریفات شاباشچی در کمتر از
             ۲۵ دقیقه، جهت{" "}
             <span className="font-bold text-lp-gold">
               مشاوره ۳۰ دقیقه‌ای رایگان
@@ -76,7 +76,7 @@ export default function LeadForm() {
 
           <span className="relative z-10 mt-5 inline-flex items-center gap-1.5 text-[11px] text-lp-muted sm:text-xs">
             <LockIcon className="h-3.5 w-3.5 text-lp-green" />
-            اطلاعات شما نزد تشریفات لوکس شاباش محفوظ می‌ماند.
+            اطلاعات شما نزد تشریفات لوکس شاباشچی محفوظ می‌ماند.
             <PhoneIcon className="hidden h-3.5 w-3.5 text-lp-gold sm:block" />
           </span>
         </div>

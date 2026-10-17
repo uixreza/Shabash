@@ -39,7 +39,7 @@ export default function Hero() {
             </div>
 
             <h1 className="mb-4 text-4xl font-extrabold leading-tight tracking-tight text-lp-text sm:text-5xl lg:text-6xl lg:leading-[1.15]">
-              شاباش <span className="lp-gold-text">یادت نره</span>
+              شاباشچی <span className="lp-gold-text">یادت نره</span>
             </h1>
 
             <p className="mb-3 text-base font-bold leading-relaxed text-lp-gold sm:text-lg lg:text-xl">
@@ -53,7 +53,7 @@ export default function Hero() {
 
             <div className="flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:items-center">
               <a
-                href="#lead-form"
+                href="/request"
                 className="lp-gold-gradient inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-bold text-lp-on-gold shadow-[0_6px_28px_rgba(212,175,55,0.35)] transition-all hover:-translate-y-0.5 hover:brightness-110 sm:text-base">
                 <CalendarEditIcon className="h-5 w-5" />
                 ثبت اطلاعات و شروع سریع
@@ -78,7 +78,7 @@ export default function Hero() {
               <div className="absolute inset-4 rounded-full bg-lp-gold/20 blur-3xl" />
               <Image
                 src={theme === "dark" ? "/couplesDark.png" : "/couples.jpeg"}
-                alt="شب رویایی عروسی با شاباش"
+                alt="شب رویایی عروسی با شاباشچی"
                 width={512}
                 height={512}
                 preload

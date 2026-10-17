@@ -1,4 +1,5 @@
-import { AwardIcon, HeadsetIcon, InstagramIcon, MailIcon, MapPinIcon, PhoneIcon, SendIcon, ShieldIcon, SparklesIcon } from "./icons";
+import Image from "next/image";
+import { AwardIcon, HeadsetIcon, InstagramIcon, MailIcon, MapPinIcon, PhoneIcon, SendIcon, ShieldIcon } from "./icons";
 
 export default function Footer() {
   return (
@@ -7,13 +8,17 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
           <div className="sm:col-span-2 lg:col-span-5">
             <div className="mb-4 flex items-center gap-2.5">
-              <div className="lp-gold-gradient flex h-10 w-10 items-center justify-center rounded-xl text-lp-on-gold">
-                <SparklesIcon className="h-5 w-5" />
-              </div>
+              <Image
+                src="/logo.jpg"
+                alt="لوگوی شاباشچی"
+                width={40}
+                height={40}
+                className="h-10 w-10 rounded-xl object-cover shadow-md ring-1 ring-lp-gold/40"
+              />
               <div className="flex flex-col">
-                <span className="text-lg font-bold text-lp-gold">شاباش</span>
+                <span className="text-lg font-bold text-lp-gold">شاباشچی</span>
                 <span className="text-[10px] tracking-[0.25em] text-lp-muted uppercase">
-                  Shabash Luxury
+                  Shabashchi Luxury
                 </span>
               </div>
             </div>
@@ -41,7 +46,7 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-3">
-            <h3 className="mb-4 text-sm font-bold text-lp-text">خدمات شاباش</h3>
+            <h3 className="mb-4 text-sm font-bold text-lp-text">خدمات شاباشچی</h3>
             <ul className="space-y-2.5 text-sm text-lp-muted">
               <li>
                 <a href="#featured-venues" className="transition-colors hover:text-lp-gold">
@@ -108,7 +113,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-lp-border pt-6 text-xs text-lp-muted/80 sm:flex-row">
-          <p>© ۱۴۰۴ شاباش. تمامی حقوق محفوظ است.</p>
+          <p>© ۱۴۰۴ شاباشچی. تمامی حقوق محفوظ است.</p>
           <p>ساخته‌شده با ❤ در بجنورد</p>
         </div>
       </div>

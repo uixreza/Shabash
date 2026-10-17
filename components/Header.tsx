@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 import { useTheme } from "@/components/Wrapper";
 import statesCities from "@/data/states-cities.json";
 import AuthModal from "./AuthModal";
@@ -10,7 +11,6 @@ import {
   MapPinIcon,
   MenuIcon,
   MoonIcon,
-  SparklesIcon,
   SunIcon,
   UserIcon,
   XIcon,
@@ -263,15 +263,21 @@ export default function Header() {
         <div className="flex items-center gap-3">
           <div className="sm:hidden">{locationPicker}</div>
           <a href="#hero" className="group hidden items-center gap-2.5 sm:flex">
-            <div className="lp-gold-gradient flex h-9 w-9 items-center justify-center rounded-xl text-lp-on-gold shadow-md transition-transform duration-300 group-hover:scale-105">
-              <SparklesIcon className="h-5 w-5" />
-            </div>
+            <span className="relative block h-9 w-9 overflow-hidden rounded-xl shadow-md ring-1 ring-lp-gold/40">
+              <Image
+                src="/logo.jpg"
+                alt="لوگوی شاباشچی"
+                width={36}
+                height={36}
+                className="absolute inset-0 h-full w-full scale-[1.35] object-cover transition-transform duration-300 group-hover:scale-[1.45]"
+              />
+            </span>
             <div className="flex flex-col">
               <span className="text-lg leading-none font-bold text-lp-gold">
-                شاباش
+                شاباشچی
               </span>
               <span className="mt-1 text-[9px] leading-none tracking-[0.2em] text-lp-muted uppercase">
-                Shabash Luxury
+                Shabashchi Luxury
               </span>
             </div>
           </a>
