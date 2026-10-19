@@ -1,13 +1,41 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { signOut } from "next-auth/react";
 
-const items = [
+const items: {
+  label: string;
+  href: string;
+  exact?: boolean;
+  icon: ReactNode;
+}[] = [
   {
-    label: "برنامه عروسی",
+    label: "داشبورد",
+    href: "/dashboard",
+    exact: true,
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round">
+        <rect width="7" height="7" x="3" y="3" rx="1" />
+        <rect width="7" height="7" x="14" y="3" rx="1" />
+        <rect width="7" height="7" x="14" y="14" rx="1" />
+        <rect width="7" height="7" x="3" y="14" rx="1" />
+      </svg>
+    ),
+  },
+  {
+    label: "درخواست‌ها",
     href: "/dashboard/schedule",
     icon: (
       <svg
@@ -24,28 +52,6 @@ const items = [
         <path d="M16 2v4" />
         <rect width="18" height="18" x="3" y="4" rx="2" />
         <path d="M3 10h18" />
-      </svg>
-    ),
-  },
-  {
-    label: "وضعیت درخواست‌ها",
-    href: "/dashboard/requests",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round">
-        <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2" />
-        <rect width="8" height="4" x="8" y="3" rx="1" />
-        <path d="M9 14 7 12" />
-        <path d="m9 14 2-2" />
-        <path d="M13 14h4" />
       </svg>
     ),
   },
@@ -144,7 +150,10 @@ export default function Sidebar() {
 
         <nav className="flex flex-1 flex-col gap-1.5">
           {items.map((item) => {
-            const active = pathname === item.href;
+            const active = item.exact
+              ? pathname === item.href
+              : pathname === item.href ||
+                pathname.startsWith(item.href + "/");
             return (
               <Link
                 key={item.href}
@@ -152,7 +161,7 @@ export default function Sidebar() {
                 onClick={() => setOpen(false)}
                 className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all active:scale-[0.98] ${
                   active
-                    ? "bg-primary text-white shadow-sm shadow-primary/30"
+                    ? "bg-primary text-primary-fg shadow-sm shadow-primary/30"
                     : "text-foreground/60 hover:bg-primary/10 hover:text-foreground"
                 }`}>
                 {item.icon}
@@ -162,7 +171,9 @@ export default function Sidebar() {
           })}
         </nav>
 
-        <button className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-foreground/50 transition-all hover:bg-red-500  hover:text-white active:scale-[0.98]">
+        <button
+          onClick={() => signOut({ callbackUrl: "/" })}
+          className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-foreground/50 transition-all hover:bg-red-500  hover:text-white active:scale-[0.98]">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"

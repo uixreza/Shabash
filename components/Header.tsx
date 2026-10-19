@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useTheme } from "@/components/Wrapper";
 import statesCities from "@/data/states-cities.json";
@@ -19,6 +21,7 @@ import {
 export default function Header() {
   const pathname = usePathname();
   const isDashboard = pathname.startsWith("/dashboard");
+  const { data: session } = useSession();
   const { theme, setTheme } = useTheme();
   const [open, setOpen] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
@@ -297,13 +300,22 @@ export default function Header() {
         <div className="flex items-center gap-2 sm:gap-3">
           <div className="hidden sm:block">{locationPicker}</div>
           {themeButton}
-          <button
-            type="button"
-            onClick={() => setAuthOpen(true)}
-            className="lp-gold-gradient hidden items-center gap-1.5 rounded-full px-5 py-2.5 text-xs font-bold text-lp-on-gold shadow-[0_0_18px_rgba(212,175,55,0.25)] transition-all hover:brightness-110 active:scale-95 md:inline-flex">
-            <UserIcon className="h-4 w-4" />
-            ورود / ثبت‌نام
-          </button>
+          {session ? (
+            <Link
+              href="/dashboard"
+              className="lp-gold-gradient hidden items-center gap-1.5 rounded-full px-5 py-2.5 text-xs font-bold text-lp-on-gold shadow-[0_0_18px_rgba(212,175,55,0.25)] transition-all hover:brightness-110 active:scale-95 md:inline-flex">
+              <UserIcon className="h-4 w-4" />
+              داشبورد من
+            </Link>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setAuthOpen(true)}
+              className="lp-gold-gradient hidden items-center gap-1.5 rounded-full px-5 py-2.5 text-xs font-bold text-lp-on-gold shadow-[0_0_18px_rgba(212,175,55,0.25)] transition-all hover:brightness-110 active:scale-95 md:inline-flex">
+              <UserIcon className="h-4 w-4" />
+              ورود / ثبت‌نام
+            </button>
+          )}
           <button
             type="button"
             aria-label="منو"
@@ -330,16 +342,26 @@ export default function Header() {
                 {link.label}
               </a>
             ))}
-            <button
-              type="button"
-              onClick={() => {
-                setMenuOpen(false);
-                setAuthOpen(true);
-              }}
-              className="lp-gold-gradient mt-2 flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold text-lp-on-gold md:hidden">
-              <UserIcon className="h-4 w-4" />
-              ورود / ثبت‌نام
-            </button>
+            {session ? (
+              <Link
+                href="/dashboard"
+                onClick={() => setMenuOpen(false)}
+                className="lp-gold-gradient mt-2 flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold text-lp-on-gold md:hidden">
+                <UserIcon className="h-4 w-4" />
+                داشبورد من
+              </Link>
+            ) : (
+              <button
+                type="button"
+                onClick={() => {
+                  setMenuOpen(false);
+                  setAuthOpen(true);
+                }}
+                className="lp-gold-gradient mt-2 flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold text-lp-on-gold md:hidden">
+                <UserIcon className="h-4 w-4" />
+                ورود / ثبت‌نام
+              </button>
+            )}
           </nav>
         </div>
       )}

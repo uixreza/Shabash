@@ -1,15 +1,28 @@
+"use client";
+
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 export default function DashboardHeader() {
+  const { data: session } = useSession();
+  const phone = session?.user?.phone;
+  const name = session?.user?.name;
+
   return (
     <header className="flex h-16 items-center justify-between border-b border-primary/10 bg-background/80 px-6 backdrop-blur-md">
       <div className="flex items-center gap-3">
         <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 text-sm font-bold text-primary">
-          ع
+          {name ? name.slice(0, 1) : "ک"}
         </div>
         <div>
-          <p className="text-sm font-medium text-foreground">علی رضایی</p>
-          <p className="text-[11px] text-foreground/40">کاربر</p>
+          {name ? (
+            <p className="text-sm font-medium text-foreground">{name}</p>
+          ) : null}
+          <p
+            dir="ltr"
+            className={`${name ? "text-[11px] text-foreground/40" : "text-sm font-medium text-foreground"} text-right`}>
+            {phone ?? "—"}
+          </p>
         </div>
       </div>
 

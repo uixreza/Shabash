@@ -122,7 +122,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
 
             <button
               onClick={() => setStep(2)}
-              className="w-full rounded-xl bg-primary py-3 text-sm font-medium text-white transition-all hover:bg-primary/90 active:scale-[0.98]">
+              className="w-full rounded-xl bg-primary py-3 text-sm font-medium text-primary-fg transition-all hover:bg-primary/90 active:scale-[0.98]">
               ادامه
             </button>
           </div>
@@ -181,7 +181,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
             <button
               onClick={onComplete}
               disabled={!fullname.trim() || !pid.trim() || !dob.trim()}
-              className="w-full rounded-xl bg-primary py-3 text-sm font-medium text-white transition-all hover:bg-primary/90 active:scale-[0.98] disabled:opacity-40">
+              className="w-full rounded-xl bg-primary py-3 text-sm font-medium text-primary-fg transition-all hover:bg-primary/90 active:scale-[0.98] disabled:opacity-40">
               ثبت و شروع
             </button>
           </div>

@@ -113,7 +113,7 @@ export default function TicketsPage() {
               <h2 className="text-sm font-bold text-foreground">تیکت‌ها</h2>
               <button
                 onClick={() => setShowNew(true)}
-                className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-white transition-all hover:bg-primary/90 active:scale-95"
+                className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-fg transition-all hover:bg-primary/90 active:scale-95"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="12" x2="12" y1="5" y2="19" /><line x1="5" x2="19" y1="12" y2="12" />
@@ -152,11 +152,11 @@ export default function TicketsPage() {
                     <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
                       <div className={`max-w-xs rounded-2xl px-4 py-2.5 text-sm ${
                         msg.role === "user"
-                          ? "bg-primary text-white rounded-bl-sm"
+                          ? "bg-primary text-primary-fg rounded-bl-sm"
                           : "bg-primary/5 text-foreground rounded-br-sm"
                       }`}>
                         <p>{msg.text}</p>
-                        <p className={`mt-1 text-[10px] ${msg.role === "user" ? "text-white/60" : "text-foreground/40"}`}>
+                        <p className={`mt-1 text-[10px] ${msg.role === "user" ? "text-primary-fg/60" : "text-foreground/40"}`}>
                           {msg.time}
                         </p>
                       </div>
@@ -176,7 +176,7 @@ export default function TicketsPage() {
                   <button
                     onClick={handleSend}
                     disabled={!input.trim()}
-                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-white transition-all hover:bg-primary/90 active:scale-95 disabled:opacity-40"
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-fg transition-all hover:bg-primary/90 active:scale-95 disabled:opacity-40"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <line x1="22" x2="11" y1="2" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" />
@@ -226,7 +226,7 @@ export default function TicketsPage() {
                       onClick={() => setNewCategory(cat)}
                       className={`rounded-lg border px-3 py-1.5 text-xs font-medium transition-all ${
                         newCategory === cat
-                          ? "border-primary bg-primary text-white"
+                          ? "border-primary bg-primary text-primary-fg"
                           : "border-primary/20 text-foreground/60 hover:border-primary/40"
                       }`}
                     >
@@ -239,7 +239,7 @@ export default function TicketsPage() {
               <button
                 type="submit"
                 disabled={!newTitle.trim()}
-                className="w-full rounded-xl bg-primary py-3 text-sm font-medium text-white transition-all hover:bg-primary/90 active:scale-[0.98] disabled:opacity-40"
+                    className="w-full rounded-xl bg-primary py-3 text-sm font-medium text-primary-fg transition-all hover:bg-primary/90 active:scale-[0.98] disabled:opacity-40"
               >
                 ایجاد تیکت
               </button>

@@ -4,6 +4,7 @@ import PageTransition from "@/components/PageTransition";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import Wrapper from "@/components/Wrapper";
+import Providers from "@/components/Providers";
 export const metadata: Metadata = {
   title: "شاباشچی | برنامه‌ریز عروسی",
   description: "برنامه‌ریزی عروسی رویایی شما با شاباشچی",
@@ -28,8 +29,10 @@ export default function RootLayout({
           <div className="absolute top-1/3 left-1/4 h-[300px] w-[300px] rounded-full bg-primary/5 blur-[90px]" />
         </div>
         <Wrapper>
-          <Header />
-          <PageTransition>{children}</PageTransition>
+          <Providers>
+            <Header />
+            <PageTransition>{children}</PageTransition>
+          </Providers>
           <Toaster
             position="top-center"
             toastOptions={{

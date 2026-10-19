@@ -91,8 +91,10 @@
 }
 
 :root {
-  --background: #fffaf3;
-  --foreground: #2d2d2d;
+  --background: var(--lp-bg);
+  --foreground: var(--lp-text);
+  --primary: var(--lp-gold);
+  --primary-fg: var(--lp-on-gold);
 
   --lp-bg: #f6f1e6;
   --lp-bg-alt: #efe7d5;
@@ -112,8 +114,10 @@
 }
 
 [data-theme="dark"] {
-  --background: #1b211a;
-  --foreground: #fffaf3;
+  --background: var(--lp-bg);
+  --foreground: var(--lp-text);
+  --primary: var(--lp-gold);
+  --primary-fg: var(--lp-on-gold);
 
   --lp-bg: #081610;
   --lp-bg-alt: #0a1a12;
@@ -135,7 +139,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-primary: #73976a;
+  --color-primary: var(--primary);
+  --color-primary-fg: var(--primary-fg);
   --color-lp-bg: var(--lp-bg);
   --color-lp-bg-alt: var(--lp-bg-alt);
   --color-lp-surface: var(--lp-surface);

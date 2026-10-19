@@ -13,7 +13,7 @@ export default function Navbar() {
       <div className="flex flex-row items-center gap-1.5 rounded-2xl border-2 border-primary/20 bg-background px-2 py-3 backdrop-blur-xl">
         <button
           onClick={() => setAuthOpen(true)}
-          className="flex flex-row items-center gap-1.5 rounded-xl bg-primary px-3 py-2 text-white transition-all hover:bg-primary/90 active:scale-95">
+          className="flex flex-row items-center gap-1.5 rounded-xl bg-primary px-3 py-2 text-primary-fg transition-all hover:bg-primary/90 active:scale-95">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
