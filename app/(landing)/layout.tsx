@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import PageTransition from "@/components/PageTransition";
 
 export const metadata: Metadata = {
-  title: "شاباشچی | برنامه‌ریز عروسی در بجنورد",
+  title: "66082222",
   description:
     "برنامه‌ریزی هوشمندانه و بی‌دغدغه‌ترین شب زندگی شما — رزرو آنلاین مجلل‌ترین تالارها و باغ‌عمارت‌های خراسان شمالی با شاباشچی",
 };

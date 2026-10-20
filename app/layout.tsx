@@ -6,7 +6,7 @@ import { Toaster } from "react-hot-toast";
 import Wrapper from "@/components/Wrapper";
 import Providers from "@/components/Providers";
 export const metadata: Metadata = {
-  title: "شاباشچی | برنامه‌ریز عروسی",
+  title: "66082222",
   description: "برنامه‌ریزی عروسی رویایی شما با شاباشچی",
 };
 
