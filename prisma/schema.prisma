@@ -18,9 +18,54 @@ model User {
   dateOfBirth  String?  @map("date_of_birth") @db.VarChar(10)
   state        String?  @db.VarChar(50)
   city         String?  @db.VarChar(50)
+  role         UserRole @default(user)
   createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  supportTickets SupportTicket[]
 
   @@map("users")
+}
+
+enum UserRole {
+  user
+  admin
+}
+
+enum SupportTicketStatus {
+  pending
+  answered
+  closed
+}
+
+enum SupportMessageSender {
+  user
+  support
+}
+
+model SupportTicket {
+  id        Int                @id @default(autoincrement())
+  userId    Int                @map("user_id")
+  title     String             @db.VarChar(120)
+  category  String             @db.VarChar(50)
+  status    SupportTicketStatus @default(pending)
+  createdAt DateTime           @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime           @updatedAt @map("updated_at") @db.Timestamptz(6)
+  user      User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages  SupportTicketMessage[]
+
+  @@index([userId, createdAt])
+  @@map("support_tickets")
+}
+
+model SupportTicketMessage {
+  id        Int                  @id @default(autoincrement())
+  ticketId  Int                  @map("ticket_id")
+  sender    SupportMessageSender
+  body      String
+  createdAt DateTime             @default(now()) @map("created_at") @db.Timestamptz(6)
+  ticket    SupportTicket        @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+
+  @@index([ticketId, createdAt])
+  @@map("support_ticket_messages")
 }
 
 enum WeddingRequestStatus {

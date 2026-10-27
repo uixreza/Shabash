@@ -21,7 +21,8 @@ import {
 
 export default function Header() {
   const pathname = usePathname();
-  const isDashboard = pathname.startsWith("/dashboard");
+  const isAppArea =
+    pathname.startsWith("/dashboard") || pathname.startsWith("/console");
   const { data: session } = useSession();
   const { theme, setTheme } = useTheme();
   const [open, setOpen] = useState(false);
@@ -161,7 +162,7 @@ export default function Header() {
     { label: "درباره ما", href: "/about" },
   ];
 
-  if (isDashboard) {
+  if (isAppArea) {
     return (
       <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between border-b border-primary/10 bg-background/80 px-6 py-3 backdrop-blur-md">
         <div className="flex items-center gap-2">

@@ -35,17 +35,43 @@ export const authOptions: NextAuthOptions = {
           })
         );
 
-        return { id: String(user.id), phone: user.phone, name: user.name };
+        return {
+          id: String(user.id),
+          phone: user.phone,
+          name: user.name,
+          role: user.role,
+        };
       },
     }),
   ],
   callbacks: {
     async jwt({ token, user }) {
-      if (user) token.phone = user.phone;
+      if (user) {
+        token.phone = user.phone;
+        token.role = user.role;
+        return token;
+      }
+      // Keep the role fresh so promotions/demotions apply without a re-login.
+      if (token.phone) {
+        try {
+          const row = await withDbRetry(() =>
+            prisma.user.findUnique({
+              where: { phone: token.phone as string },
+              select: { role: true },
+            })
+          );
+          token.role = row?.role ?? "user";
+        } catch {
+          token.role = token.role ?? "user";
+        }
+      }
       return token;
     },
     async session({ session, token }) {
-      if (session.user) session.user.phone = (token.phone as string) ?? "";
+      if (session.user) {
+        session.user.phone = (token.phone as string) ?? "";
+        session.user.role = token.role === "admin" ? "admin" : "user";
+      }
       return session;
     },
   },

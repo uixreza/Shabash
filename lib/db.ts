@@ -16,7 +16,11 @@ function createClient(): PrismaClient {
 }
 
 function getPrisma(): PrismaClient {
-  if (!globalForPrisma.prisma) globalForPrisma.prisma = createClient();
+  const cached = globalForPrisma.prisma;
+  // A hot-reloaded dev server can retain a PrismaClient created from the
+  // previous generated schema. Replace it when the newly added model is absent.
+  if (cached?.supportTicket) return cached;
+  globalForPrisma.prisma = createClient();
   return globalForPrisma.prisma;
 }
 

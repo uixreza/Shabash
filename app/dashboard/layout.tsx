@@ -1,8 +1,7 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import DashboardShell from "@/components/dashboard/DashboardShell";
 import { authOptions } from "@/lib/auth";
-import Sidebar from "@/components/dashboard/Sidebar";
-import DashboardHeader from "@/components/dashboard/Header";
 
 export default async function DashboardLayout({
   children,
@@ -12,13 +11,5 @@ export default async function DashboardLayout({
   const session = await getServerSession(authOptions);
   if (!session) redirect("/");
 
-  return (
-    <div className="flex h-[calc(100vh-4rem)] overflow-y-hidden">
-      <Sidebar />
-      <div className="flex flex-1 flex-col overflow-hidden">
-        <DashboardHeader />
-        {children}
-      </div>
-    </div>
-  );
+  return <DashboardShell area="user">{children}</DashboardShell>;
 }

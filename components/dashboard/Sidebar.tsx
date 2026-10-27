@@ -7,84 +7,108 @@ import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { sileo } from "sileo";
 
-const items: {
+const dashboardIcon = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round">
+    <rect width="7" height="7" x="3" y="3" rx="1" />
+    <rect width="7" height="7" x="14" y="3" rx="1" />
+    <rect width="7" height="7" x="14" y="14" rx="1" />
+    <rect width="7" height="7" x="3" y="14" rx="1" />
+  </svg>
+);
+
+const calendarIcon = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round">
+    <path d="M8 2v4" />
+    <path d="M16 2v4" />
+    <rect width="18" height="18" x="3" y="4" rx="2" />
+    <path d="M3 10h18" />
+  </svg>
+);
+
+const accountIcon = (
+  <span className="relative">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round">
+      <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+      <circle cx="12" cy="7" r="4" />
+    </svg>
+    <span className="absolute -left-1.5 -top-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-amber-400 text-[8px] font-bold text-white">
+      !
+    </span>
+  </span>
+);
+
+const ticketIcon = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round">
+    <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
+    <path d="M13 5v2" />
+    <path d="M13 17v2" />
+    <path d="M13 11v2" />
+  </svg>
+);
+
+const userItems: {
   label: string;
   href: string;
   exact?: boolean;
   icon: ReactNode;
 }[] = [
-  {
-    label: "داشبورد",
-    href: "/dashboard",
-    exact: true,
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round">
-        <rect width="7" height="7" x="3" y="3" rx="1" />
-        <rect width="7" height="7" x="14" y="3" rx="1" />
-        <rect width="7" height="7" x="14" y="14" rx="1" />
-        <rect width="7" height="7" x="3" y="14" rx="1" />
-      </svg>
-    ),
-  },
-  {
-    label: "درخواست‌ها",
-    href: "/dashboard/requests",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round">
-        <path d="M8 2v4" />
-        <path d="M16 2v4" />
-        <rect width="18" height="18" x="3" y="4" rx="2" />
-        <path d="M3 10h18" />
-      </svg>
-    ),
-  },
-  {
-    label: "حساب کاربری",
-    href: "/dashboard/account",
-    icon: (
-      <span className="relative">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round">
-          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-          <circle cx="12" cy="7" r="4" />
-        </svg>
-        <span className="absolute -left-1.5 -top-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-amber-400 text-[8px] font-bold text-white">
-          !
-        </span>
-      </span>
-    ),
-  },
+  { label: "داشبورد", href: "/dashboard", exact: true, icon: dashboardIcon },
+  { label: "درخواست‌ها", href: "/dashboard/requests", icon: calendarIcon },
+  { label: "حساب کاربری", href: "/dashboard/account", icon: accountIcon },
 ];
 
-export default function Sidebar() {
+const adminItems: {
+  label: string;
+  href: string;
+  exact?: boolean;
+  icon: ReactNode;
+}[] = [
+  { label: "پیشخوان", href: "/console", exact: true, icon: dashboardIcon },
+  { label: "درخواست‌ها", href: "/console/requests", icon: calendarIcon },
+  { label: "تیکت‌های پشتیبانی", href: "/console/tickets", icon: ticketIcon },
+  { label: "حساب کاربری", href: "/dashboard/account", icon: accountIcon },
+];
+
+export default function Sidebar({ area = "user" }: { area?: "user" | "admin" }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const items = area === "admin" ? adminItems : userItems;
 
   function confirmLogout() {
     const id = sileo.warning({
@@ -168,6 +192,11 @@ export default function Sidebar() {
               className="h-9 w-9 rounded-xl object-cover shadow-sm ring-1 ring-primary/30"
             />
             <span className="text-base font-bold text-foreground">شاباشچی</span>
+            {area === "admin" && (
+              <span className="rounded-lg bg-primary/10 px-2 py-0.5 text-[10px] font-bold text-primary">
+                مدیریت
+              </span>
+            )}
           </div>
           <button
             onClick={() => setOpen(false)}
