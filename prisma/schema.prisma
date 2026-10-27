@@ -16,9 +16,39 @@ model User {
   name         String?
   nationalId   String?  @map("national_id") @db.VarChar(10)
   dateOfBirth  String?  @map("date_of_birth") @db.VarChar(10)
+  state        String?  @db.VarChar(50)
+  city         String?  @db.VarChar(50)
   createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
 
   @@map("users")
+}
+
+enum WeddingRequestStatus {
+  submitted
+  under_review
+  consultation_scheduled
+  consultation_completed
+}
+
+model WeddingRequest {
+  id               String                @id
+  groomName        String                @map("groom_name")
+  brideName        String                @map("bride_name")
+  phone            String                @db.VarChar(15)
+  weddingDate      String?               @map("wedding_date") @db.VarChar(10)
+  venue            String?
+  style            String?
+  notes            String?
+  budgetTotal      Int?                  @map("budget_total")
+  budgetAllocation Json                  @map("budget_allocation")
+  services         Json
+  status           WeddingRequestStatus  @default(submitted)
+  submittedAt      DateTime              @default(now()) @map("submitted_at") @db.Timestamptz(6)
+  createdAt        DateTime              @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt        DateTime              @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@index([phone])
+  @@map("wedding_requests")
 }
 
 model VerificationCode {

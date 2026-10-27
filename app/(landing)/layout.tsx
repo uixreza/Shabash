@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import PageTransition from "@/components/PageTransition";
 
 export const metadata: Metadata = {
-  title: "66082222",
+  title: "شاباشچی",
   description:
     "برنامه‌ریزی هوشمندانه و بی‌دغدغه‌ترین شب زندگی شما — رزرو آنلاین مجلل‌ترین تالارها و باغ‌عمارت‌های خراسان شمالی با شاباشچی",
 };

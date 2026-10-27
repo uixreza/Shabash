@@ -11,11 +11,18 @@ export function toFaDigits(value: string | number): string {
 }
 
 export function normalizeIranPhone(value: string): string {
-  return value
+  const digits = value
     .replace(/[۰-۹]/g, (d) => String(PERSIAN_DIGITS.indexOf(d)))
     .replace(/[٠-٩]/g, (d) => String("٠١٢٣٤٥٦٧٨٩".indexOf(d)))
-    .replace(/\D/g, "")
-    .slice(0, 11);
+    .replace(/\D/g, "");
+
+  // Accept +98 / 0098 / 98 / 9… (missing leading zero) formats too.
+  if (digits.startsWith("0098")) return ("0" + digits.slice(4)).slice(0, 11);
+  if (digits.startsWith("98") && digits.length >= 12)
+    return ("0" + digits.slice(2)).slice(0, 11);
+  if (digits.startsWith("9") && digits.length === 10)
+    return ("0" + digits).slice(0, 11);
+  return digits.slice(0, 11);
 }
 
 export function isValidIranPhone(value: string): boolean {

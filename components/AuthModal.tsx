@@ -4,7 +4,7 @@ import { useState, useRef, type FormEvent } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
-import toast from "react-hot-toast";
+import { toast } from "@/lib/toast";
 import { requestOtp } from "@/app/actions";
 import { isValidIranPhone, normalizeIranPhone } from "@/lib/format";
 
@@ -32,7 +32,9 @@ export default function AuthModal({ open, onClose }: AuthModalProps) {
     }
     toast.success("کد تأیید ارسال شد");
     if (res.devCode) {
-      toast(`کد تأیید (حالت توسعه): ${res.devCode}`, { duration: 10000 });
+      toast.info(`کد تأیید (حالت توسعه): ${res.devCode}`, {
+        duration: 10000,
+      });
     }
     return true;
   }
@@ -107,7 +109,8 @@ export default function AuthModal({ open, onClose }: AuthModalProps) {
   return createPortal(
     <>
       <div className="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm" onClick={handleClose} />
-      <div className="fixed left-1/2 top-1/2 z-[70] w-full max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-lp-border bg-lp-surface-strong/95 p-6 shadow-2xl shadow-black/40 backdrop-blur-xl">
+      <div className="lp-sheet fixed inset-x-0 bottom-0 z-[70] max-h-[90vh] w-full overflow-y-auto rounded-t-3xl border-t border-lp-border bg-lp-surface-strong/95 p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] shadow-2xl shadow-black/40 backdrop-blur-xl sm:inset-x-auto sm:bottom-auto sm:left-1/2 sm:top-1/2 sm:max-h-none sm:w-auto sm:max-w-sm sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-2xl sm:border">
+        <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-lp-muted/30 sm:hidden" />
         <button onClick={handleClose} className="absolute left-3 top-3 text-lp-muted transition-colors hover:text-lp-gold">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M18 6 6 18" /><path d="m6 6 12 12" />

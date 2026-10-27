@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "node scripts/check-dev-port.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -23,7 +24,7 @@
     "pg": "^8.23.1",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "react-hot-toast": "^2.6.0"
+    "sileo": "^0.1.6"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

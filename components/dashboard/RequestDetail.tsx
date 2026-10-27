@@ -1,16 +1,14 @@
 "use client";
 
-import { use } from "react";
 import Link from "next/link";
-import { notFound } from "next/navigation";
-import toast from "react-hot-toast";
+import { toast } from "@/lib/toast";
 import {
   CONSULTATION_STEPS,
   REQUEST_STATUS_LABELS,
   currentStepIndex,
   formatToman,
-  getRequestById,
   type RequestStatus,
+  type WeddingRequest,
 } from "@/data/requests";
 
 function statusBadgeClass(status: RequestStatus) {
@@ -81,23 +79,18 @@ function CheckIcon() {
   );
 }
 
-export default function RequestDetailPage({
-  params,
+export default function RequestDetail({
+  request,
 }: {
-  params: Promise<{ id: string }>;
+  request: WeddingRequest;
 }) {
-  const { id } = use(params);
-  const request = getRequestById(id);
-
-  if (!request) notFound();
-
   const step = currentStepIndex(request.status);
 
   return (
     <main className="flex-1 overflow-y-auto p-6">
       <div className="mx-auto max-w-3xl">
         <Link
-          href="/dashboard/schedule"
+          href="/dashboard/requests"
           className="inline-flex items-center gap-1.5 text-sm text-foreground/50 transition-colors hover:text-primary">
           <svg
             xmlns="http://www.w3.org/2000/svg"

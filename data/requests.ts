@@ -45,88 +45,27 @@ export const CONSULTATION_STEPS = [
   "تکمیل مشاوره",
 ];
 
-export const WEDDING_REQUESTS: WeddingRequest[] = [
-  {
-    id: "REQ-00124",
-    groomName: "سامان رضایی",
-    brideName: "نگار محمدی",
-    phone: "09121234567",
-    weddingDate: "۱۴۰۵/۰۵/۱۲",
-    venue: "تالار پردیس",
-    style: "مدرن و لوکس",
-    notes:
-      "مراسم ساده و صمیمی با گل‌آرایی سفید و سبز. پذیرایی شام سلف‌سرویس و مراسم عقد در همان تالار برگزار شود.",
-    budgetTotal: 250000000,
-    budgetAllocation: [
-      { service: "تالار", amount: 120000000 },
-      { service: "گروه موسیقی زنده", amount: 40000000 },
-      { service: "گل‌آرایی", amount: 35000000 },
-      { service: "آتلیه", amount: 25000000 },
-    ],
-    services: [
-      { id: "talar", label: "تالار", done: true },
-      { id: "band", label: "گروه موسیقی زنده", done: true },
-      { id: "florist", label: "گل‌آرایی", done: false },
-      { id: "ateliye", label: "آتلیه", done: false },
-    ],
-    status: "under_review",
-    submittedAt: "۱۴۰۵/۰۲/۱۸",
-  },
-  {
-    id: "REQ-00118",
-    groomName: "امیر حسینی",
-    brideName: "مهسا کریمی",
-    phone: "09351234567",
-    weddingDate: "۱۴۰۵/۰۶/۰۳",
-    venue: "باغ رستوران بهشت",
-    style: "باغ سنتی",
-    notes: "مراسم عصرانه در باغ، با سفره‌خانه سنتی و موسیقی زنده سنتی.",
-    budgetTotal: 400000000,
-    budgetAllocation: [
-      { service: "تالار", amount: 180000000 },
-      { service: "گروه موسیقی زنده", amount: 60000000 },
-      { service: "آتلیه", amount: 50000000 },
-      { service: "میزون و آرایشگاه", amount: 70000000 },
-      { service: "گل‌آرایی", amount: 40000000 },
-    ],
-    services: [
-      { id: "talar", label: "تالار", done: true },
-      { id: "band", label: "گروه موسیقی زنده", done: true },
-      { id: "ateliye", label: "آتلیه", done: true },
-      { id: "mezon", label: "میزون و آرایشگاه", done: false },
-      { id: "florist", label: "گل‌آرایی", done: false },
-    ],
-    status: "consultation_scheduled",
-    submittedAt: "۱۴۰۵/۰۱/۳۰",
-  },
-  {
-    id: "REQ-00109",
-    groomName: "رضا احمدی",
-    brideName: "الهام نوری",
-    phone: "09129876543",
-    weddingDate: "۱۴۰۴/۱۲/۲۰",
-    venue: null,
-    style: "خارج از شهر",
-    notes: "مراسم در یک باغ خارج از شهر با ظرفیت ۱۵۰ نفر.",
-    budgetTotal: 180000000,
-    budgetAllocation: [
-      { service: "تالار", amount: 90000000 },
-      { service: "آتلیه", amount: 45000000 },
-      { service: "گروه موسیقی زنده", amount: 45000000 },
-    ],
-    services: [
-      { id: "talar", label: "تالار", done: true },
-      { id: "ateliye", label: "آتلیه", done: true },
-      { id: "band", label: "گروه موسیقی زنده", done: true },
-    ],
-    status: "consultation_completed",
-    submittedAt: "۱۴۰۴/۰۹/۱۰",
-  },
+export const CHECKLIST_ITEMS = [
+  { id: "talar", label: "تالار" },
+  { id: "ateliye", label: "آتلیه" },
+  { id: "mezon", label: "میزون و آرایشگاه" },
+  { id: "car", label: "رزرو ماشین و دکوراسیون" },
+  { id: "nail", label: "سالن ناخن" },
+  { id: "cookery", label: "آشپزخانه" },
+  { id: "band", label: "گروه موسیقی زنده" },
+  { id: "card", label: "کارت دعوت" },
 ];
 
-export function getRequestById(id: string): WeddingRequest | undefined {
-  return WEDDING_REQUESTS.find((request) => request.id === id);
-}
+export const PRICE_MAP: Record<string, number> = {
+  talar: 15000000,
+  ateliye: 5000000,
+  mezon: 4000000,
+  car: 3000000,
+  nail: 2000000,
+  cookery: 6000000,
+  band: 8000000,
+  card: 3000000,
+};
 
 export function currentStepIndex(status: RequestStatus): number {
   switch (status) {

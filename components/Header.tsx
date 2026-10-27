@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useTheme } from "@/components/Wrapper";
 import statesCities from "@/data/states-cities.json";
+import { getUserLocation, saveUserLocation } from "@/app/actions";
 import AuthModal from "./AuthModal";
 import {
   ChevronDownIcon,
@@ -36,6 +37,25 @@ export default function Header() {
     ? (statesCities as Record<string, string[]>)[selectedState]
     : [];
 
+  const sessionPhone = session?.user?.phone;
+  const loadedForPhone = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (!sessionPhone || loadedForPhone.current === sessionPhone) return;
+    loadedForPhone.current = sessionPhone;
+    let cancelled = false;
+    getUserLocation()
+      .then((location) => {
+        if (cancelled || !location.city) return;
+        setSelectedState(location.state);
+        setSelectedCity(location.city);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [sessionPhone]);
+
   function handleSelectState(state: string) {
     setSelectedState(state);
     setSelectedCity(null);
@@ -44,6 +64,10 @@ export default function Header() {
   function handleSelectCity(city: string) {
     setSelectedCity(city);
     setOpen(false);
+    if (sessionPhone && selectedState) {
+      const state = selectedState;
+      saveUserLocation({ state, city }).catch(() => {});
+    }
   }
 
   function handleReset() {

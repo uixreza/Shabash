@@ -29,3 +29,29 @@ export const prisma = new Proxy({} as PrismaClient, {
       : value;
   },
 });
+
+const RETRYABLE_CODES = new Set(["P1001", "P1017", "P2024", "P2028"]);
+const RETRYABLE_MESSAGE =
+  /ECONNREFUSED|ECONNRESET|ETIMEDOUT|EPIPE|socket hang up|Connection terminated|endpoint has been closed|Can't reach database server/i;
+
+export async function withDbRetry<T>(
+  fn: () => Promise<T>,
+  attempts = 3
+): Promise<T> {
+  let lastError: unknown;
+  for (let i = 0; i < attempts; i++) {
+    try {
+      return await fn();
+    } catch (error) {
+      lastError = error;
+      const e = error as { code?: string; message?: string };
+      const retryable =
+        (e.code && RETRYABLE_CODES.has(e.code)) ||
+        RETRYABLE_MESSAGE.test(e.message ?? "") ||
+        RETRYABLE_MESSAGE.test(String((e as { cause?: unknown }).cause ?? ""));
+      if (!retryable || i === attempts - 1) throw error;
+      await new Promise((resolve) => setTimeout(resolve, 300 * 2 ** i));
+    }
+  }
+  throw lastError;
+}

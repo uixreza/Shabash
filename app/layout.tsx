@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import PageTransition from "@/components/PageTransition";
 import "./globals.css";
-import { Toaster } from "react-hot-toast";
+import { Toaster } from "sileo";
 import Wrapper from "@/components/Wrapper";
 import Providers from "@/components/Providers";
 export const metadata: Metadata = {
-  title: "66082222",
+  title: "شاباشچی",
   description: "برنامه‌ریزی عروسی رویایی شما با شاباشچی",
 };
 
@@ -35,9 +35,15 @@ export default function RootLayout({
           </Providers>
           <Toaster
             position="top-center"
-            toastOptions={{
+            options={{
               duration: 3000,
-              style: { fontFamily: "Dana, sans-serif" },
+              fill: "#171717",
+              styles: {
+                title: "text-white!",
+                description: "text-white/75!",
+                badge: "bg-white/10!",
+                button: "bg-white/10! hover:bg-white/15!",
+              },
             }}
           />
         </Wrapper>

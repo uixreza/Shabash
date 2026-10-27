@@ -33,7 +33,7 @@ function Wheel({
     if (!el) return;
     const target = selectedIndex * ITEM_H;
     if (Math.abs(el.scrollTop - target) > 1) {
-      el.scrollTo({ top: target });
+      el.scrollTo({ top: target, behavior: "smooth" });
     }
   }, [selectedIndex]);
 
@@ -50,40 +50,91 @@ function Wheel({
     }, 120);
   }
 
+  function step(delta: number) {
+    const next = Math.min(
+      labels.length - 1,
+      Math.max(0, selectedIndex + delta)
+    );
+    if (next !== selectedIndex) onChange(next);
+  }
+
+  const btnClass =
+    "flex h-6 w-6 items-center justify-center rounded-lg text-foreground/50 transition-colors hover:bg-primary/10 hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:pointer-events-none disabled:opacity-30";
+
   return (
-    <div className="relative w-full" style={{ height: WHEEL_H }}>
-      <div className="pointer-events-none absolute inset-x-0 top-1/2 z-10 h-10 -translate-y-1/2 rounded-xl border border-primary/20 bg-primary/[0.06]" />
-      <div
-        ref={ref}
-        onScroll={handleScroll}
-        role="listbox"
-        aria-label={ariaLabel}
-        className="lp-no-scrollbar h-full snap-y snap-mandatory overscroll-contain overflow-y-scroll"
-        style={{
-          maskImage:
-            "linear-gradient(to bottom, transparent, black 25%, black 75%, transparent)",
-          WebkitMaskImage:
-            "linear-gradient(to bottom, transparent, black 25%, black 75%, transparent)",
-        }}
-      >
-        <div style={{ height: PAD }} />
-        {labels.map((label, i) => (
-          <div
-            key={i}
-            role="option"
-            aria-selected={i === selectedIndex}
-            style={{ height: ITEM_H }}
-            className={`flex snap-center items-center justify-center text-sm transition-colors ${
-              i === selectedIndex
-                ? "font-bold text-primary"
-                : "text-foreground/40"
-            }`}
-          >
-            {label}
-          </div>
-        ))}
-        <div style={{ height: PAD }} />
+    <div className="flex w-full flex-col items-center gap-1">
+      <button
+        type="button"
+        onClick={() => step(-1)}
+        disabled={selectedIndex <= 0}
+        aria-label={`${ariaLabel} قبلی`}
+        className={btnClass}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round">
+          <path d="m18 15-6-6-6 6" />
+        </svg>
+      </button>
+      <div className="relative w-full" style={{ height: WHEEL_H }}>
+        <div className="pointer-events-none absolute inset-x-0 top-1/2 z-10 h-10 -translate-y-1/2 rounded-xl border border-primary/20 bg-primary/[0.06]" />
+        <div
+          ref={ref}
+          onScroll={handleScroll}
+          role="listbox"
+          aria-label={ariaLabel}
+          className="lp-no-scrollbar h-full snap-y snap-mandatory overscroll-contain overflow-y-scroll"
+          style={{
+            maskImage:
+              "linear-gradient(to bottom, transparent, black 25%, black 75%, transparent)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, transparent, black 25%, black 75%, transparent)",
+          }}
+        >
+          <div style={{ height: PAD }} />
+          {labels.map((label, i) => (
+            <div
+              key={i}
+              role="option"
+              aria-selected={i === selectedIndex}
+              style={{ height: ITEM_H }}
+              className={`flex snap-center items-center justify-center text-sm transition-colors ${
+                i === selectedIndex
+                  ? "font-bold text-primary"
+                  : "text-foreground/40"
+              }`}
+            >
+              {label}
+            </div>
+          ))}
+          <div style={{ height: PAD }} />
+        </div>
       </div>
+      <button
+        type="button"
+        onClick={() => step(1)}
+        disabled={selectedIndex >= labels.length - 1}
+        aria-label={`${ariaLabel} بعدی`}
+        className={btnClass}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round">
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </button>
     </div>
   );
 }

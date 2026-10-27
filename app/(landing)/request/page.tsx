@@ -2,9 +2,15 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import toast from "react-hot-toast";
+import { toast } from "@/lib/toast";
 import { motion, AnimatePresence } from "framer-motion";
-import { formatPrice as addCommas } from "@/lib/format";
+import {
+  formatPrice as addCommas,
+  isValidIranPhone,
+  normalizeIranPhone,
+} from "@/lib/format";
+import { submitWeddingRequest } from "@/app/actions";
+import { CHECKLIST_ITEMS, PRICE_MAP } from "@/data/requests";
 import {
   ArrowLeftIcon,
   CameraIcon,
@@ -21,17 +27,6 @@ import {
   UserIcon,
   VillaIcon,
 } from "@/components/landing/icons";
-
-const CHECKLIST_ITEMS = [
-  { id: "talar", label: "تالار" },
-  { id: "ateliye", label: "آتلیه" },
-  { id: "mezon", label: "میزون و آرایشگاه" },
-  { id: "car", label: "رزرو ماشین و دکوراسیون" },
-  { id: "nail", label: "سالن ناخن" },
-  { id: "cookery", label: "آشپزخانه" },
-  { id: "band", label: "گروه موسیقی زنده" },
-  { id: "card", label: "کارت دعوت" },
-];
 
 const CONTACT_METHODS = [
   { value: "phone", label: "تماس تلفنی" },
@@ -54,17 +49,6 @@ const WEDDING_TYPES = [
   { value: "country", label: "خارج از شهر" },
   { value: "none", label: "بدون ترجیح" },
 ];
-
-const PRICE_MAP: Record<string, number> = {
-  talar: 15000000,
-  ateliye: 5000000,
-  mezon: 4000000,
-  car: 3000000,
-  nail: 2000000,
-  cookery: 6000000,
-  band: 8000000,
-  card: 3000000,
-};
 
 const FORM_STEP_COUNT = 4;
 
@@ -506,6 +490,26 @@ export default function RequestPage() {
   const [consented, setConsented] = useState(false);
   const [talarMode, setTalarMode] = useState<"shabashchi" | "choose" | null>(null);
   const [selectedTalar, setSelectedTalar] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [sessionPhone, setSessionPhone] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    fetch("/api/auth/session", { cache: "no-store" })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        const phone = data?.user?.phone;
+        if (cancelled || typeof phone !== "string" || !phone) return;
+        setSessionPhone(phone);
+        setFormData((prev) => ({ ...prev, phone }));
+      })
+      .catch(() => {});
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const serviceIds = formData.checkedItems;
   const confirmStep = FORM_STEP_COUNT + serviceIds.length;
@@ -559,7 +563,12 @@ export default function RequestPage() {
     if (s === 0) {
       if (!formData.groomName.trim()) e.groomName = "نام داماد الزامی است";
       if (!formData.brideName.trim()) e.brideName = "نام عروس الزامی است";
-      if (!formData.phone.trim()) e.phone = "شماره تماس الزامی است";
+      if (
+        !sessionPhone &&
+        !isValidIranPhone(normalizeIranPhone(formData.phone))
+      ) {
+        e.phone = "شماره موبایل معتبر نیست (مثال: ۰۹۱۲۳۴۵۶۷۸۹)";
+      }
       if (!formData.contactMethod) e.contactMethod = "روش تماس را انتخاب کنید";
     }
 
@@ -607,16 +616,55 @@ export default function RequestPage() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  function handleFinish() {
-    if (!validateStep(confirmStep)) return;
-    toast.success(
-      "درخواست شما با موفقیت ثبت شد؛ به زودی کارشناس شاباش با شما تماس می‌گیرد.",
-    );
-    setStep(0);
-    setConsented(false);
-    setTalarMode(null);
-    setSelectedTalar("");
-    setErrors({});
+  async function handleFinish() {
+    if (submitting || !validateStep(confirmStep)) return;
+
+    const venue =
+      talarMode === "choose" && selectedTalar
+        ? (TALAR_LIST.find((talar) => talar.id === selectedTalar)?.name ?? null)
+        : talarMode === "shabashchi"
+          ? "به انتخاب شاباشچی"
+          : null;
+
+    setSubmitting(true);
+    try {
+      const result = await submitWeddingRequest({
+        groomName: formData.groomName,
+        brideName: formData.brideName,
+        phone: formData.phone,
+        weddingMonth: formData.weddingMonth,
+        weddingDay: formData.weddingDay,
+        leaveToShabashchi: formData.leaveToShabashchi,
+        budget: formData.budget,
+        guestCount: formData.guestCount,
+        style:
+          WEDDING_TYPES.find((t) => t.value === formData.weddingType)?.label ??
+          null,
+        venue,
+        notes: formData.dreamWedding,
+        checkedItems: formData.checkedItems,
+      });
+
+      if (!result.ok) {
+        toast.error(
+          result.error ?? "ثبت درخواست ناموفق بود؛ لطفاً دوباره تلاش کنید.",
+        );
+        return;
+      }
+
+      toast.success(
+        "درخواست شما با موفقیت ثبت شد؛ از بخش «درخواست‌ها» در داشبورد قابل پیگیری است.",
+      );
+      setStep(0);
+      setConsented(false);
+      setTalarMode(null);
+      setSelectedTalar("");
+      setErrors({});
+    } catch {
+      toast.error("ارتباط با سرور برقرار نشد؛ لطفاً دوباره تلاش کنید.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   const meta = stepMeta(safeStep);
@@ -654,8 +702,14 @@ export default function RequestPage() {
               value={formData.phone}
               onChange={(e) => update("phone", e.target.value)}
               placeholder="۰۹۱۲۳۴۵۶۷۸۹"
+              readOnly={Boolean(sessionPhone)}
               error={errors.phone}
             />
+            {sessionPhone && (
+              <p className="mt-1.5 text-[11px] leading-relaxed text-lp-muted">
+                شماره حساب شما به‌صورت خودکار در این درخواست استفاده می‌شود.
+              </p>
+            )}
             {errors.phone && <ErrorMsg>{errors.phone}</ErrorMsg>}
           </div>
           <div>
@@ -1116,8 +1170,9 @@ export default function RequestPage() {
           <button
             type="button"
             onClick={handleFinish}
-            className="lp-gold-gradient flex-1 rounded-xl py-3 text-sm font-bold text-lp-on-gold transition-all hover:brightness-110 active:scale-[0.98]">
-            پرداخت
+            disabled={submitting}
+            className="lp-gold-gradient flex-1 rounded-xl py-3 text-sm font-bold text-lp-on-gold transition-all hover:brightness-110 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70">
+            {submitting ? "در حال ثبت درخواست..." : "پرداخت"}
             <CalendarIcon className="mr-2 inline h-4 w-4" />
           </button>
         )}

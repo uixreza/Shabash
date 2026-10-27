@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import toast from "react-hot-toast";
+import { toast } from "@/lib/toast";
 import { isValidIranPhone, normalizeIranPhone, toFaDigits } from "@/lib/format";
 import { LockIcon, PhoneIcon, RingsIcon } from "./icons";
 

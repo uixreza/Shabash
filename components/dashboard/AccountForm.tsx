@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import toast from "react-hot-toast";
+import { toast } from "@/lib/toast";
 import { updateAccount } from "@/app/actions";
 import BirthDateWheel from "./BirthDateWheel";
 import { toFaDigits } from "@/lib/format";
@@ -100,7 +100,8 @@ export default function AccountForm({ initial }: AccountFormProps) {
               تاریخ تولد (شمسی)
             </label>
             <p className="mt-1 text-xs text-foreground/40">
-              با بالا و پایین رول کردن، سال و ماه و روز را انتخاب کنید
+              با بالا و پایین رول کردن یا فلش‌های بالا و پایین هر ستون، سال و ماه
+              و روز را انتخاب کنید
             </p>
           </div>
           {dob && (

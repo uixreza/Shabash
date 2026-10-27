@@ -1,10 +1,13 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
 import {
-  WEDDING_REQUESTS,
   REQUEST_STATUS_LABELS,
   formatToman,
   type RequestStatus,
 } from "@/data/requests";
+import { authOptions } from "@/lib/auth";
+import { listWeddingRequests } from "@/lib/requests";
 import { toFaDigits } from "@/lib/format";
 
 function statusBadgeClass(status: RequestStatus) {
@@ -56,8 +59,12 @@ function CheckIcon() {
   );
 }
 
-export default function SchedulePage() {
-  const requests = WEDDING_REQUESTS;
+export default async function SchedulePage() {
+  const session = await getServerSession(authOptions);
+  const phone = session?.user?.phone;
+  if (!phone) redirect("/");
+
+  const requests = await listWeddingRequests(phone);
 
   return (
     <main className="flex-1 overflow-y-auto p-6">
@@ -199,7 +206,7 @@ export default function SchedulePage() {
                 </div>
 
                 <Link
-                  href={`/dashboard/schedule/${request.id}`}
+                  href={`/dashboard/requests/${request.id}`}
                   className="mt-4 block w-full rounded-xl border border-primary/25 bg-primary/[0.04] py-3 text-center text-sm font-medium text-primary transition-all hover:bg-primary hover:text-primary-fg active:scale-[0.98]">
                   مشاهده جزئیات درخواست
                 </Link>

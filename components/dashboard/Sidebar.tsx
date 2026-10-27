@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
+import { sileo } from "sileo";
 
 const items: {
   label: string;
@@ -36,7 +37,7 @@ const items: {
   },
   {
     label: "درخواست‌ها",
-    href: "/dashboard/schedule",
+    href: "/dashboard/requests",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -84,6 +85,45 @@ const items: {
 export default function Sidebar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+
+  function confirmLogout() {
+    const id = sileo.warning({
+      title: "خروج از حساب",
+      description: (
+        <div
+          className="mt-1 flex gap-2"
+          onPointerDown={(e) => e.stopPropagation()}>
+          <span
+            role="button"
+            tabIndex={0}
+            onClick={() => signOut({ callbackUrl: "/" })}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") signOut({ callbackUrl: "/" });
+            }}
+            className="cursor-pointer rounded-lg bg-red-500/90 px-3 py-1.5 text-xs font-bold text-white transition-colors hover:bg-red-500">
+            بله، خروج
+          </span>
+          <span
+            role="button"
+            tabIndex={0}
+            onClick={() => sileo.dismiss(id)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") sileo.dismiss(id);
+            }}
+            className="cursor-pointer rounded-lg bg-white/10 px-3 py-1.5 text-xs font-bold text-white/80 transition-colors hover:bg-white/15">
+            خیر
+          </span>
+        </div>
+      ),
+      duration: null,
+      fill: "#2b220c",
+      styles: {
+        title: "text-white!",
+        description: "text-white/75!",
+        badge: "bg-white/10!",
+      },
+    });
+  }
 
   return (
     <>
@@ -172,7 +212,7 @@ export default function Sidebar() {
         </nav>
 
         <button
-          onClick={() => signOut({ callbackUrl: "/" })}
+          onClick={confirmLogout}
           className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-foreground/50 transition-all hover:bg-red-500  hover:text-white active:scale-[0.98]">
           <svg
             xmlns="http://www.w3.org/2000/svg"
