@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { venues } from "@/data/landing";
 import { ArrowLeftIcon, MapPinIcon, StarIcon } from "./icons";
 
@@ -69,12 +70,12 @@ export default function Venues() {
                     <span className="block text-[11px] text-lp-muted">ظرفیت مهمان</span>
                     <span className="text-sm font-bold text-lp-text">{venue.capacity}</span>
                   </div>
-                  <a
+                  <Link
                     href="/request"
                     className="inline-flex items-center gap-1.5 rounded-full border border-lp-border bg-lp-surface-strong px-4 py-2 text-xs font-bold text-lp-text transition-all hover:border-transparent hover:bg-lp-gold hover:text-lp-on-gold">
                     استعلام ظرفیت و تاریخ
                     <ArrowLeftIcon className="h-3.5 w-3.5" />
-                  </a>
+                  </Link>
                 </div>
               </div>
             </article>

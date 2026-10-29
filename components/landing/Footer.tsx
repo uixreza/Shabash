@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { AwardIcon, HeadsetIcon, InstagramIcon, MailIcon, MapPinIcon, PhoneIcon, SendIcon, ShieldIcon } from "./icons";
 
 export default function Footer() {
@@ -72,6 +73,16 @@ export default function Footer() {
                 <a href="#services" className="transition-colors hover:text-lp-gold">
                   موزیک، نورپردازی و کترینگ
                 </a>
+              </li>
+              <li>
+                <Link href="/request" className="font-bold text-lp-text transition-colors hover:text-lp-gold">
+                  ثبت درخواست رایگان عروسی
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="transition-colors hover:text-lp-gold">
+                  درباره شاباشچی
+                </Link>
               </li>
             </ul>
           </div>

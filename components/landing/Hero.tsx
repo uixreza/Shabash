@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useTheme } from "@/components/Wrapper";
 import { metrics } from "@/data/landing";
 import {
@@ -52,12 +53,12 @@ export default function Hero() {
             </p>
 
             <div className="flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:items-center">
-              <a
+              <Link
                 href="/request"
                 className="lp-gold-gradient inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-bold text-lp-on-gold shadow-[0_6px_28px_rgba(212,175,55,0.35)] transition-all hover:-translate-y-0.5 hover:brightness-110 sm:text-base">
                 <CalendarEditIcon className="h-5 w-5" />
                 ثبت اطلاعات و شروع سریع
-              </a>
+              </Link>
               <a
                 href="#featured-venues"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-lp-gold/35 bg-lp-surface px-6 py-3.5 text-sm font-semibold text-lp-text backdrop-blur-md transition-all hover:border-lp-gold/80 hover:bg-lp-surface-strong sm:text-base">
@@ -81,7 +82,8 @@ export default function Hero() {
                 alt="شب رویایی عروسی با شاباشچی"
                 width={512}
                 height={512}
-                preload
+                priority
+                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 400px, 400px"
                 className="relative w-full"
               />
             </div>
