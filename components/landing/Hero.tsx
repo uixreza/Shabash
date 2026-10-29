@@ -40,7 +40,7 @@ export default function Hero() {
             </div>
 
             <h1 className="mb-4 text-4xl font-extrabold leading-tight tracking-tight text-lp-text sm:text-5xl lg:text-6xl lg:leading-[1.15]">
-              شاباشچی <span className="lp-gold-text">یادت نره</span>
+              شاباش <span className="lp-gold-text">یادت نره</span>
             </h1>
 
             <p className="mb-3 text-base font-bold leading-relaxed text-lp-gold sm:text-lg lg:text-xl">
